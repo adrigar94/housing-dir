@@ -7,5 +7,5 @@ use App\Shared\Domain\ValueObject\StringValueObject;
 final class PropertyDescription extends StringValueObject
 {
     protected $min_length = 5;
-    protected $max_length = 255;
+    protected $max_length = 5120;
 }
