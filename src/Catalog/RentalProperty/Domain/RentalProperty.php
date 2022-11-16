@@ -2,39 +2,39 @@
 
 namespace App\Catalog\RentalProperty\Domain;
 
-use App\Catalog\Shared\Domain\Property\PropertyAdType;
 use App\Catalog\Shared\Domain\Property\PropertyCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyDescription;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
+use DateTime;
 
 final class RentalProperty
 {
     private $id;
     private $title;
     private $description;
-    private $type;
     private $characteristics;
     private $location;
+    private $published_at;
 
     public function __construct(
         PropertyId $id,
         PropertyTitle $title,
         PropertyDescription $description,
-        PropertyAdType $type,
         PropertyCharacteristics $characteristics,
         PropertyLocation $location,
-        PropertyGallery $gallery
+        PropertyGallery $gallery,
+        DateTime $published_at = new DateTime()
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->characteristics = $characteristics;
-        $this->type = $type;
         $this->location = $location;
         $this->gallery = $gallery;
+        $this->published_at = $published_at;
     }
 
     public function id(): PropertyId
@@ -49,10 +49,6 @@ final class RentalProperty
     {
         return $this->description;
     }
-    public function type(): PropertyAdType
-    {
-        return $this->type;
-    }
     public function characteristics(): PropertyCharacteristics
     {
         return $this->characteristics;
@@ -62,6 +58,10 @@ final class RentalProperty
         return $this->location;
     }
     public function gallery(): PropertyGallery
+    {
+        return $this->gallery;
+    }
+    public function published_at(): DateTime
     {
         return $this->gallery;
     }
