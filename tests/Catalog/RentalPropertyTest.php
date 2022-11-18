@@ -9,6 +9,7 @@ use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
+use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyTitleMother;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -23,6 +24,7 @@ class RentalPropertyTest extends KernelTestCase
         $characteristics = new PropertyCharacteristics();
         $location = new PropertyLocation();
         $gallery = new PropertyGallery();
+        $price = PropertyPriceMother::create();
 
         $rentalAd = new RentalProperty(
             $rentalId,
@@ -30,7 +32,8 @@ class RentalPropertyTest extends KernelTestCase
             $description,
             $characteristics,
             $location,
-            $gallery
+            $gallery,
+            $price
         );
 
         $this->assertEquals($rentalAd->id()->value(),$rentalId->value(),"testing id");
@@ -39,5 +42,6 @@ class RentalPropertyTest extends KernelTestCase
         $this->assertEquals($rentalAd->characteristics(),$characteristics,"description characteristics");
         $this->assertEquals($rentalAd->location(),$location,"description location");
         $this->assertEquals($rentalAd->gallery(),$gallery,"description gallery");
+        $this->assertEquals($rentalAd->priceMonth(),$price,"price gallery");
     }
 }
