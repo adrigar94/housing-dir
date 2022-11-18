@@ -6,12 +6,12 @@ use DateTime;
 
 abstract class Property
 {
-    private $id;
-    private $title;
-    private $description;
-    private $characteristics;
-    private $location;
-    private $published_at;
+    protected $id;
+    protected $title;
+    protected $description;
+    protected $characteristics;
+    protected $location;
+    protected $published_at;
 
     public function __construct(
         PropertyId $id,
