@@ -3,8 +3,7 @@
 namespace App\Tests\Catalog;
 
 use App\Catalog\RentalProperty\Domain\RentalProperty;
-use App\Catalog\Shared\Domain\Property\PropertyAdType;
-use App\Catalog\Shared\Domain\Property\PropertyCharacteristics;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
@@ -21,7 +20,7 @@ class RentalPropertyTest extends KernelTestCase
         $rentalId = PropertyIdMother::create();
         $title = PropertyTitleMother::create();
         $description = PropertyDescriptionMother::create();
-        $characteristics = new PropertyCharacteristics();
+        $characteristics = new PropertyCommonCharacteristics();
         $location = new PropertyLocation();
         $gallery = new PropertyGallery();
         $price = PropertyPriceMother::create();

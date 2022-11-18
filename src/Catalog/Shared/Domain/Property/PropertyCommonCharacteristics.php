@@ -2,7 +2,7 @@
 
 namespace App\Catalog\Shared\Domain\Property;
 
-final class PropertyCharacteristics
+final class PropertyCommonCharacteristics
 {
 
     private $rooms;

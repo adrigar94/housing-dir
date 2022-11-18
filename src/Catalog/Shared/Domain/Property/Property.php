@@ -19,7 +19,7 @@ abstract class Property
         PropertyId $id,
         PropertyTitle $title,
         PropertyDescription $description,
-        PropertyCharacteristics $characteristics,
+        PropertyCommonCharacteristics $characteristics,
         PropertyLocation $location,
         PropertyGallery $gallery,
         DateTime $published_at = new DateTime(),
@@ -53,7 +53,7 @@ abstract class Property
         }
         return $this->description;
     }
-    public function characteristics(PropertyCharacteristics $new = null): PropertyCharacteristics
+    public function characteristics(PropertyCommonCharacteristics $new = null): PropertyCommonCharacteristics
     {
         if($new){
             $this->characteristics = $new;
