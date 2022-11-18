@@ -32,9 +32,10 @@ class RentalPropertyTest extends KernelTestCase
             $description,
             $characteristics,
             $location,
-            $gallery,
-            $price
+            $gallery
         );
+
+        $rentalAd->priceMonth($price);
 
         $this->assertEquals($rentalAd->id()->value(),$rentalId->value(),"testing id");
         $this->assertEquals($rentalAd->title()->value(),$title->value(),"testing title");
