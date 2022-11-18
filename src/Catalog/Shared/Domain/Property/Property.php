@@ -2,6 +2,7 @@
 
 namespace App\Catalog\Shared\Domain\Property;
 
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use DateTime;
 
 abstract class Property
