@@ -33,13 +33,13 @@ abstract class StringValueObject
     private function ensureIsMinLengthIsValid(string $string): void
     {
         if($this->min_length AND strlen($string) < $this->min_length){
-            throw new RuntimeException("PropertyTitle does not have the required minimum length", 500);
+            throw new RuntimeException("String does not have the required minimum length", 500);
         }
     }
     private function ensureIsMaxLengthIsValid(string $string): void
     {
         if($this->max_length AND strlen($string) > $this->max_length){
-            throw new RuntimeException("PropertyTitle exceeds maximum allowed length", 500);
+            throw new RuntimeException("String exceeds maximum allowed length", 500);
         }
     }
 }
