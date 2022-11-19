@@ -12,7 +12,7 @@ final class RentalProperty extends Property
     
     public function priceMonth(PropertyPrice $new = null): PropertyPrice
     {
-        if($new){
+        if(!is_null($new)){
             $this->price_month = $new;
         }
         return $this->price_month;

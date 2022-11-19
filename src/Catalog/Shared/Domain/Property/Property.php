@@ -42,35 +42,35 @@ abstract class Property
     }
     public function title(PropertyTitle $new = null): PropertyTitle
     {
-        if($new){
+        if(!is_null($new)){
             $this->title = $new;
         }
         return $this->title;
     }
     public function description(PropertyDescription $new = null): PropertyDescription
     {
-        if($new){
+        if(!is_null($new)){
             $this->description = $new;
         }
         return $this->description;
     }
     public function characteristics(PropertyCommonCharacteristics $new = null): PropertyCommonCharacteristics
     {
-        if($new){
+        if(!is_null($new)){
             $this->characteristics = $new;
         }
         return $this->characteristics;
     }
     public function location(PropertyLocation $new = null): PropertyLocation
     {
-        if($new){
+        if(!is_null($new)){
             $this->location = $new;
         }
         return $this->location;
     }
     public function gallery(PropertyGallery $new = null): PropertyGallery
     {
-        if($new){
+        if(!is_null($new)){
             $this->gallery = $new;
         }
         return $this->gallery;

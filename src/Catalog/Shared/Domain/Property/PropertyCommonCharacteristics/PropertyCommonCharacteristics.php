@@ -2,22 +2,12 @@
 
 namespace App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics;
 
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\PropertyConstructionCharacterisitcs;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\PropertyEnergyCharacterisitcs;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEquipmentCharacterisitcs\PropertyEquipmentCharacterisitcs;
+
 final class PropertyCommonCharacteristics
 {
-
-    // private $rooms;
-    // private $bathrooms;
-    // private $square_metre;
-    // private $type;
-    // private $contructed_area;
-    // private $living_area;
-    // private $plot_area;
-    // private $age;
-    // private $conservation;
-    // private $floor;
-    // private $is_furnished;
-    // private $has_garage;
-    // private $has_lift;
 
     private $constructionCharacterisitcs;
     private $equipmentCharacterisitcs;
@@ -36,7 +26,7 @@ final class PropertyCommonCharacteristics
 
     public function ConstructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): PropertyConstructionCharacterisitcs
     {
-        if($new){
+        if(!is_null($new)){
             $this->constructionCharacterisitcs = $new;
         }
         return $this->constructionCharacterisitcs;
@@ -44,7 +34,7 @@ final class PropertyCommonCharacteristics
 
     public function EquipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): PropertyEquipmentCharacterisitcs
     {
-        if($new){
+        if(!is_null($new)){
             $this->equipmentCharacterisitcs = $new;
         }
         return $this->equipmentCharacterisitcs;
@@ -52,7 +42,7 @@ final class PropertyCommonCharacteristics
 
     public function EnergyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): PropertyEnergyCharacterisitcs
     {
-        if($new){
+        if(!is_null($new)){
             $this->energyCharacterisitcs = $new;
         }
         return $this->energyCharacterisitcs;
