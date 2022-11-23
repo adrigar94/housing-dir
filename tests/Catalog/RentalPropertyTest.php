@@ -2,7 +2,9 @@
 
 namespace App\Tests\Catalog;
 
+use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\RentalProperty\Domain\RentalProperty;
+use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\Age;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\BathRooms;
@@ -41,6 +43,7 @@ class RentalPropertyTest extends KernelTestCase
         $location = new PropertyLocation();
         $gallery = new PropertyGallery();
         $price = PropertyPriceMother::create();
+        $petsAllowed = new BoolValueObject(false);
 
         $rentalAd = new RentalProperty(
             $rentalId,
@@ -50,7 +53,7 @@ class RentalPropertyTest extends KernelTestCase
             $location,
             $gallery,
             $price,
-            new BoolValueObject(false)
+            $petsAllowed
         );
 
         $this->assertEquals($rentalAd->id()->value(), $rentalId->value(), "testing id");
@@ -60,5 +63,22 @@ class RentalPropertyTest extends KernelTestCase
         $this->assertEquals($rentalAd->location(), $location, "testing location");
         $this->assertEquals($rentalAd->gallery(), $gallery, "testing gallery");
         $this->assertEquals($rentalAd->priceMonth(), $price, "testing price");
+
+        // $rentalRepository = $this->getMockBuilder(RentalPropertyRepository::class)->getMock();
+        // $rentalRepository->expects($this->once())
+        //     ->method('save');
+        // TODO
+
+        $creator = new RentalPropertyCreator($this->createMock(RentalPropertyRepository::class));
+        $creator->__invoke(
+            $rentalId,
+            $title,
+            $description,
+            $characteristics,
+            $location,
+            $gallery,
+            $price,
+            $petsAllowed
+        );
     }
 }
