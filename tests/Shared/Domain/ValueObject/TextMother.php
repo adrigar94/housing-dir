@@ -6,7 +6,7 @@ use Faker\Factory;
 
 class TextMother
 {
-    public static function create($characters = 200): string
+    public static function create(int $characters = 200): string
     {
         return Factory::create()->text($characters);
     }
