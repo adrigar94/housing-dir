@@ -4,14 +4,12 @@ namespace App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\Prope
 
 class PropertyEnergyCharacterisitcs
 {
-    private $consumption;
-    private $emissions;
     // TODO: generate label of energy certificate
-    
+
     public function __construct(
-        Consumption $consumption,
-        Emissions $emissions
-    ){
+        private Consumption $consumption,
+        private Emissions $emissions
+    ) {
         $this->consumption = $consumption;
         $this->emissions = $emissions;
     }

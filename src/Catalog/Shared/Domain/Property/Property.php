@@ -7,24 +7,15 @@ use DateTime;
 
 abstract class Property
 {
-    protected $id;
-    protected $title;
-    protected $description;
-    protected $characteristics;
-    protected $location;
-    protected $gallery;
-    protected $published_at;
-    protected $updated_at;
-
     public function __construct(
-        PropertyId $id,
-        PropertyTitle $title,
-        PropertyDescription $description,
-        PropertyCommonCharacteristics $characteristics,
-        PropertyLocation $location,
-        PropertyGallery $gallery,
-        DateTime $published_at = new DateTime(),
-        DateTime $updated_at = new DateTime(),
+        protected PropertyId $id,
+        protected PropertyTitle $title,
+        protected PropertyDescription $description,
+        protected PropertyCommonCharacteristics $characteristics,
+        protected PropertyLocation $location,
+        protected PropertyGallery $gallery,
+        protected DateTime $updated_at = new DateTime(),
+        protected DateTime $created_at = new DateTime(),
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -32,7 +23,7 @@ abstract class Property
         $this->characteristics = $characteristics;
         $this->location = $location;
         $this->gallery = $gallery;
-        $this->published_at = $published_at;
+        $this->created_at = $created_at;
         $this->updated_at = $updated_at;
     }
 
@@ -75,9 +66,9 @@ abstract class Property
         }
         return $this->gallery;
     }
-    public function publishedAt(): DateTime
+    public function createdAt(): DateTime
     {
-        return $this->published_at;
+        return $this->created_at;
     }
     public function updatedAt(): DateTime
     {

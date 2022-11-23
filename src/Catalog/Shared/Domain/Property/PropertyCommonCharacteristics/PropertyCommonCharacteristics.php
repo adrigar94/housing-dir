@@ -8,17 +8,11 @@ use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEqu
 
 final class PropertyCommonCharacteristics
 {
-
-    private $constructionCharacterisitcs;
-    private $equipmentCharacterisitcs;
-    private $energyCharacterisitcs;
-
     public function __construct(
-        PropertyConstructionCharacterisitcs $constructionCharacterisitcs,
-        PropertyEquipmentCharacterisitcs $equipmentCharacterisitcs,
-        PropertyEnergyCharacterisitcs $energyCharacterisitcs,
-    )
-    {
+        private PropertyConstructionCharacterisitcs $constructionCharacterisitcs,
+        private PropertyEquipmentCharacterisitcs $equipmentCharacterisitcs,
+        private PropertyEnergyCharacterisitcs $energyCharacterisitcs,
+    ) {
         $this->constructionCharacterisitcs = $constructionCharacterisitcs;
         $this->equipmentCharacterisitcs = $equipmentCharacterisitcs;
         $this->energyCharacterisitcs = $energyCharacterisitcs;
@@ -26,7 +20,7 @@ final class PropertyCommonCharacteristics
 
     public function ConstructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): PropertyConstructionCharacterisitcs
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->constructionCharacterisitcs = $new;
         }
         return $this->constructionCharacterisitcs;
@@ -34,7 +28,7 @@ final class PropertyCommonCharacteristics
 
     public function EquipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): PropertyEquipmentCharacterisitcs
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->equipmentCharacterisitcs = $new;
         }
         return $this->equipmentCharacterisitcs;
@@ -42,10 +36,9 @@ final class PropertyCommonCharacteristics
 
     public function EnergyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): PropertyEnergyCharacterisitcs
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->energyCharacterisitcs = $new;
         }
         return $this->energyCharacterisitcs;
     }
-
 }

@@ -15,7 +15,7 @@ class Consumption extends IntValueObject implements Stringable
     /**
      * @param int $value Consumtion in Whats-hour / meter²
      */
-    public function __construct(int $value, EnergyEfficiencyRating $rating)
+    public function __construct(int $value, private EnergyEfficiencyRating $rating)
     {
         $this->ensureIsValid($value);
         $this->value = $value;
@@ -34,6 +34,6 @@ class Consumption extends IntValueObject implements Stringable
 
     public function __toString(): string
     {
-        return $this->KWhPerMeter2().' KWh/m² year';
+        return $this->KWhPerMeter2() . ' KWh/m² year';
     }
 }

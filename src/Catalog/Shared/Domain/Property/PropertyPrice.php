@@ -7,10 +7,7 @@ use Stringable;
 
 class PropertyPrice
 {
-    private $price_cents;
-    private $currency;
-
-    public function __construct(int $price_cents, Currencies $currency)
+    public function __construct(private int $price_cents, private Currencies $currency)
     {
         $this->price_cents = $price_cents;
         $this->currency = $currency;
@@ -33,10 +30,9 @@ class PropertyPrice
 
     public function toString($symbol_after = false): string
     {
-        if($symbol_after){
+        if ($symbol_after) {
             return $this->price . " " . $this->currency->value;
         }
         return $this->currency->value . " " . $this->price;
     }
-    
 }

@@ -6,5 +6,6 @@ final class PropertyLocation
 {
     public function __construct()
     {
+        // TODO
     }
 }

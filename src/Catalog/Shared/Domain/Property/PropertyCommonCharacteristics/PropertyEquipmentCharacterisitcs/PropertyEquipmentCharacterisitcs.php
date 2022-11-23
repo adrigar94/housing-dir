@@ -6,24 +6,19 @@ use App\Shared\Domain\ValueObject\BoolValueObject;
 
 class PropertyEquipmentCharacterisitcs
 {
-    private $is_furnished;
-    private $has_garage;
-    private $has_heating;
-    private $has_air_conditioning;
-    private $has_garden;
-
     public function __construct(
-        BoolValueObject $is_furnished,
-        BoolValueObject $has_garage,
-        BoolValueObject $has_heating,
-        BoolValueObject $has_air_conditioning,
-        BoolValueObject $has_garden,
-        BoolValueObject $has_pool
-    )
-    {
+        private BoolValueObject $is_furnished,
+        private BoolValueObject $has_garage,
+        private BoolValueObject $has_heating,
+        private ?TypesHeating $type_heating,
+        private BoolValueObject $has_air_conditioning,
+        private BoolValueObject $has_garden,
+        private BoolValueObject $has_pool
+    ) {
         $this->is_furnished = $is_furnished;
         $this->has_garage = $has_garage;
         $this->has_heating = $has_heating;
+        $this->type_heating = $type_heating ?? TypesHeating::Other;
         $this->has_air_conditioning = $has_air_conditioning;
         $this->has_garden = $has_garden;
         $this->has_pool = $has_pool;
@@ -31,7 +26,7 @@ class PropertyEquipmentCharacterisitcs
 
     public function IsFurnished($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->is_furnished = $new;
         }
         return $this->is_furnished;
@@ -39,7 +34,7 @@ class PropertyEquipmentCharacterisitcs
 
     public function HasGarage($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->has_garage = $new;
         }
         return $this->has_garage;
@@ -47,15 +42,23 @@ class PropertyEquipmentCharacterisitcs
 
     public function HasHeating($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->has_heating = $new;
         }
         return $this->has_heating;
     }
 
+    public function TypeHeating($new = null): TypesHeating
+    {
+        if (!is_null($new)) {
+            $this->type_heating = $new;
+        }
+        return $this->type_heating;
+    }
+
     public function HasAirConditioning($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->has_air_conditioning = $new;
         }
         return $this->has_air_conditioning;
@@ -63,7 +66,7 @@ class PropertyEquipmentCharacterisitcs
 
     public function HasGarden($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->has_garden = $new;
         }
         return $this->has_garden;
@@ -71,10 +74,9 @@ class PropertyEquipmentCharacterisitcs
 
     public function HasPool($new = null): BoolValueObject
     {
-        if(!is_null($new)){
+        if (!is_null($new)) {
             $this->has_pool = $new;
         }
         return $this->has_pool;
     }
-
 }

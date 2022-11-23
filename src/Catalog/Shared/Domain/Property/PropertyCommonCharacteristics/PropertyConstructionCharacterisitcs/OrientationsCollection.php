@@ -15,5 +15,4 @@ class OrientationsCollection
     {
         return $this->orientations;
     }
-
 }

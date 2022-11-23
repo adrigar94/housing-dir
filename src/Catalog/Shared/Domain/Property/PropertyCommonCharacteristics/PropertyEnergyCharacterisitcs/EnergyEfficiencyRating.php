@@ -11,4 +11,7 @@ enum EnergyEfficiencyRating: string
     case E = 'e';
     case F = 'f';
     case G = 'g';
+    case InProcess = 'in_process';
+    case Exempt = 'exempt';
+    case NotAvaible = 'not_avaible';
 }

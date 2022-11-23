@@ -11,9 +11,7 @@ abstract class StringValueObject
     protected $min_length = null;
     protected $max_length = null;
 
-    protected $value;
-
-    public function __construct(string $value)
+    public function __construct(protected string $value)
     {
         $this->ensureIsValid($value);
         $this->value = $value;

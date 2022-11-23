@@ -8,12 +8,11 @@ use Stringable;
 class Emissions extends IntValueObject implements Stringable
 {
     protected $min_int = 0;
-    private $rating;
 
     /**
      * @param int $value Emissions in g CO2/m²
      */
-    public function __construct(int $value, EnergyEfficiencyRating $rating)
+    public function __construct(int $value, private EnergyEfficiencyRating $rating)
     {
         $this->ensureIsValid($value);
         $this->value = $value;
@@ -32,6 +31,6 @@ class Emissions extends IntValueObject implements Stringable
 
     public function __toString(): string
     {
-        return $this->kGCO2PerMeter2()." KG CO2/m²";
+        return $this->kGCO2PerMeter2() . " KG CO2/m²";
     }
 }

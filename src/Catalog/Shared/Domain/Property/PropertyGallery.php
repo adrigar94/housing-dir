@@ -6,5 +6,6 @@ final class PropertyGallery
 {
     public function __construct()
     {
+        // TODO
     }
 }

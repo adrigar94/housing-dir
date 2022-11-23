@@ -4,9 +4,7 @@ namespace App\Shared\Domain\ValueObject;
 
 class BoolValueObject
 {
-    protected $value;
-
-    public function __construct(bool $value)
+    public function __construct(protected bool $value)
     {
         $this->value = $value;
     }

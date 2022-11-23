@@ -47,13 +47,14 @@ class RentalPropertyTest extends KernelTestCase
                 new Age(30),
                 BuildingConservation::Good,
                 new Floor(3),
-                new OrientationsCollection(Orientations::North,Orientations::East),
+                new OrientationsCollection(Orientations::North, Orientations::East),
                 new BoolValueObject(false)
             ),
             new PropertyEquipmentCharacterisitcs(
                 new BoolValueObject(true),
                 new BoolValueObject(true),
                 new BoolValueObject(true),
+                null,
                 new BoolValueObject(true),
                 new BoolValueObject(true),
                 new BoolValueObject(true)
@@ -73,17 +74,17 @@ class RentalPropertyTest extends KernelTestCase
             $description,
             $characteristics,
             $location,
-            $gallery
+            $gallery,
+            $price,
+            new BoolValueObject(false)
         );
 
-        $rentalAd->priceMonth($price);
-
-        $this->assertEquals($rentalAd->id()->value(),$rentalId->value(),"testing id");
-        $this->assertEquals($rentalAd->title()->value(),$title->value(),"testing title");
-        $this->assertEquals($rentalAd->description()->value(),$description->value(),"description title");
-        $this->assertEquals($rentalAd->characteristics(),$characteristics,"description characteristics");
-        $this->assertEquals($rentalAd->location(),$location,"description location");
-        $this->assertEquals($rentalAd->gallery(),$gallery,"description gallery");
-        $this->assertEquals($rentalAd->priceMonth(),$price,"price gallery");
+        $this->assertEquals($rentalAd->id()->value(), $rentalId->value(), "testing id");
+        $this->assertEquals($rentalAd->title()->value(), $title->value(), "testing title");
+        $this->assertEquals($rentalAd->description()->value(), $description->value(), "description title");
+        $this->assertEquals($rentalAd->characteristics(), $characteristics, "description characteristics");
+        $this->assertEquals($rentalAd->location(), $location, "description location");
+        $this->assertEquals($rentalAd->gallery(), $gallery, "description gallery");
+        $this->assertEquals($rentalAd->priceMonth(), $price, "price gallery");
     }
 }

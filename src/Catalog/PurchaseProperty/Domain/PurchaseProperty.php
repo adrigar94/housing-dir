@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Catalog\RentalProperty\Domain;
+namespace App\Catalog\PurchaseProperty\Domain;
 
 use App\Catalog\Shared\Domain\Property\Property;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
@@ -10,10 +10,9 @@ use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyPrice;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
-use App\Shared\Domain\ValueObject\BoolValueObject;
 use DateTime;
 
-final class RentalProperty extends Property
+final class PurchaseProperty extends Property
 {
     public function __construct(
         PropertyId $id,
@@ -22,30 +21,29 @@ final class RentalProperty extends Property
         PropertyCommonCharacteristics $characteristics,
         PropertyLocation $location,
         PropertyGallery $gallery,
-        private PropertyPrice $price_month,
-        private BoolValueObject $pets_allowed,
+        private PropertyPrice $price,
+        private PropertyPrice $community_price,
         DateTime $updated_at = new DateTime(),
         DateTime $created_at = new DateTime()
     ) {
         parent::__construct($id, $title, $description, $characteristics, $location, $gallery, $created_at, $updated_at);
-        $this->price_month = $price_month;
-        $this->pets_allowed = $pets_allowed;
+        $this->price = $price;
+        $this->community_price = $community_price;
     }
 
-
-    public function priceMonth(PropertyPrice $new = null): PropertyPrice
+    public function price(PropertyPrice $new = null): PropertyPrice
     {
         if (!is_null($new)) {
-            $this->price_month = $new;
+            $this->price = $new;
         }
-        return $this->price_month;
+        return $this->price;
     }
 
-    public function petsAllowed(PropertyPrice $new = null): BoolValueObject
+    public function communityPrice(PropertyPrice $new = null): PropertyPrice
     {
         if (!is_null($new)) {
-            $this->pets_allowed = $new;
+            $this->community_price = $new;
         }
-        return $this->pets_allowed;
+        return $this->community_price;
     }
 }

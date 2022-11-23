@@ -11,13 +11,13 @@ class SquareMeters extends IntValueObject implements Stringable
 
     public function hectares(): float
     {
-        return $this->value/10000;
+        return $this->value / 10000;
     }
 
     public function __toString(): string
     {
-        if($this->value>10000){
-            return round($this->hectares(),2) . 'ha';
+        if ($this->value > 10000) {
+            return round($this->hectares(), 2) . 'ha';
         }
         return $this->value . 'm²';
     }
