@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Tests\Catalog;
+namespace App\Tests\Catalog\Shared\Domain\Property;
 
-use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\Age;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\BathRooms;
@@ -19,46 +18,42 @@ use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEne
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\EnergyEfficiencyRating;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\PropertyEnergyCharacterisitcs;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEquipmentCharacterisitcs\PropertyEquipmentCharacterisitcs;
-use App\Catalog\Shared\Domain\Property\PropertyGallery;
-use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Shared\Domain\ValueObject\BoolValueObject;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyTitleMother;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Tests\Shared\Domain\ValueObject\BoolMother;
+use App\Tests\Shared\Domain\ValueObject\IntMother;
+use App\Tests\Shared\Domain\ValueObject\RandomElementMother;
 
-class RentalPropertyTest extends KernelTestCase
+class PropertyCommonCharacteristicsMother
 {
-    /** @test */
-    public function it_should_valid_creation_rental_property(): void
+    public static function create(): PropertyCommonCharacteristics
     {
-        $rentalId = PropertyIdMother::create();
-        $title = PropertyTitleMother::create();
-        $description = PropertyDescriptionMother::create();
-        $characteristics = PropertyCommonCharacteristicsMother::create();
-        $location = new PropertyLocation();
-        $gallery = new PropertyGallery();
-        $price = PropertyPriceMother::create();
-
-        $rentalAd = new RentalProperty(
-            $rentalId,
-            $title,
-            $description,
-            $characteristics,
-            $location,
-            $gallery,
-            $price,
-            new BoolValueObject(false)
+        return new PropertyCommonCharacteristics(
+            new PropertyConstructionCharacterisitcs(
+                new Rooms(IntMother::create(0,10)),
+                new BathRooms(IntMother::create(0,10)),
+                RandomElementMother::create(TypesConstruction::cases()),
+                new SquareMeters(IntMother::create(10,200)),
+                new SquareMeters(IntMother::create(10,200)),
+                new SquareMeters(IntMother::create(10,200)),
+                new Age(IntMother::create(0,100)),
+                BuildingConservation::Good,
+                new Floor(IntMother::create(0,10)),
+                new OrientationsCollection(RandomElementMother::create(Orientations::cases()), RandomElementMother::create(Orientations::cases())),
+                BoolMother::create()
+            ),
+            new PropertyEquipmentCharacterisitcs(
+                BoolMother::create(),
+                BoolMother::create(),
+                BoolMother::create(),
+                null, // TODO: random type of heating
+                BoolMother::create(),
+                BoolMother::create(),
+                BoolMother::create()
+            ),
+            new PropertyEnergyCharacterisitcs(
+                new Consumption(IntMother::create(1000,9000), RandomElementMother::create(EnergyEfficiencyRating::cases())),
+                new Emissions(IntMother::create(1000,9000), RandomElementMother::create(EnergyEfficiencyRating::cases()))
+            )
         );
-
-        $this->assertEquals($rentalAd->id()->value(), $rentalId->value(), "testing id");
-        $this->assertEquals($rentalAd->title()->value(), $title->value(), "testing title");
-        $this->assertEquals($rentalAd->description()->value(), $description->value(), "description title");
-        $this->assertEquals($rentalAd->characteristics(), $characteristics, "description characteristics");
-        $this->assertEquals($rentalAd->location(), $location, "description location");
-        $this->assertEquals($rentalAd->gallery(), $gallery, "description gallery");
-        $this->assertEquals($rentalAd->priceMonth(), $price, "price gallery");
     }
 }
