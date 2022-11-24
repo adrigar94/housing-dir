@@ -16,7 +16,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Catalog/RentalProperty/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Catalog\RentalProperty\Domain'
                 alias: RentalProperty
-                
+            SharedProperty:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Catalog/Shared/Infrastructure/Persistence/Doctrine/Property'
+                prefix: 'App\Catalog\Shared\Domain\Property'
+                alias: SharedProperty
 when@test:
     doctrine:
         dbal:

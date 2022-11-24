@@ -6,7 +6,7 @@
 
     <entity name="App\Catalog\RentalProperty\Domain\RentalProperty" table="rental_properties">
         <id name="id" column="id" type="guid" />
-        <field name="title" type="string" column="title" length="70"/>
+        <embedded name="title" class="App\Catalog\Shared\Domain\Property\PropertyTitle" />
     </entity>
 
 </doctrine-mapping>

@@ -5,19 +5,22 @@ namespace App\Catalog\RentalProperty\Infrastructure\Persistence;
 use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
 use App\Catalog\Shared\Domain\Property\PropertyId;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-final class DoctrineRentalPropertyRepository implements RentalPropertyRepository
+final class DoctrineRentalPropertyRepository extends ServiceEntityRepository implements RentalPropertyRepository
 {
 
-    public function __construct(private readonly EntityManager $entityManager)
+
+    public function __construct(ManagerRegistry $registry)
     {
+        parent::__construct($registry, RentalProperty::class);
     }
 
     public function save(RentalProperty $property): void
     {
-        $this->entityManager->persist($property);
-        $this->entityManager->flush($property);
+        $this->_em->persist($property);
+        $this->_em->flush($property);
     }
 
     public function search(PropertyId $id): ?RentalProperty

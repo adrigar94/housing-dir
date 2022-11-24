@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Shared\Domain\ValueObject;
 
 use RuntimeException;
+use Stringable;
 
-abstract class StringValueObject
+abstract class StringValueObject implements Stringable
 {
     protected $min_length = null;
     protected $max_length = null;
@@ -39,5 +40,10 @@ abstract class StringValueObject
         if(!is_null($this->max_length) AND strlen($string) > $this->max_length){
             throw new RuntimeException("String exceeds maximum allowed length", 500);
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->value();
     }
 }
