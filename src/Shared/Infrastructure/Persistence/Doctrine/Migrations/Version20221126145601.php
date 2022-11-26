@@ -14,7 +14,7 @@ final class Version20221126145601 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Create new table rental_properties';
     }
 
     public function up(Schema $schema): void
@@ -26,7 +26,6 @@ final class Version20221126145601 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE rental_properties');
     }
 }
