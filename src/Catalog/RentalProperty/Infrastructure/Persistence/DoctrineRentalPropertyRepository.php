@@ -75,6 +75,7 @@ final class DoctrineRentalPropertyRepository extends ServiceEntityRepository imp
 
     private function findWithSQL(PropertyId $id): ?RentalProperty
     {
+        // TODO refactor with correct params (remove create mothers)
         $params = [
             ':id' => $this->getEntityManager()->getConnection()->quote($id),
         ];
