@@ -8,5 +8,5 @@ interface RentalPropertyRepository
 {
     public function save(RentalProperty $property): void;
 
-    public function search(PropertyId $id): ?RentalProperty;
+    public function findById(PropertyId $id): ?RentalProperty;
 }

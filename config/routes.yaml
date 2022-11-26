@@ -7,7 +7,7 @@ api.rental-property.create:
   controller: App\Controller\RentalProperty\RentalPropertyCreateController
   methods: [ POST ]
 
-# api.rental-property.find:
-#   path: /api/rental-property/{:id}
-#   controller: App\Controller\RentalProperty\RentalPropertyCreateController
-#   methods: [ GET ]
+api.rental-property.find:
+  path: /api/rental-property/{id}
+  controller: App\Controller\RentalProperty\RentalPropertyFindController
+  methods: [ GET ]

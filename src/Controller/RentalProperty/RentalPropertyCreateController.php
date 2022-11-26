@@ -51,7 +51,7 @@ class RentalPropertyCreateController
                 'id' => $rentalId->value(),
                 'title' => $title->value()
             ],
-            JsonResponse::HTTP_OK
+            JsonResponse::HTTP_CREATED
         );
     }
 }
