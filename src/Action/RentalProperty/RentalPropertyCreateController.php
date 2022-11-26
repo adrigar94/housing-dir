@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\RentalProperty;
+namespace App\Action\RentalProperty;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;

@@ -21,8 +21,8 @@ services:
             - '../src/Kernel.php'
             - '../src/Shared/Infrastructure/Persistence/Doctrine/Migrations'
     
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Action\:
+        resource: '../src/Action'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed

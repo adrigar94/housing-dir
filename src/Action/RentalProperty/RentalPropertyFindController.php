@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\RentalProperty;
+namespace App\Action\RentalProperty;
 
 use App\Catalog\RentalProperty\Application\Find\RentalPropertyFinder;
 use App\Catalog\Shared\Domain\Property\PropertyId;
