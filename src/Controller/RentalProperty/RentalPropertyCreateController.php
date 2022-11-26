@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\RentalProperty;
 
-use App\Catalog\RentalProperty\Domain\RentalProperty;
-use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
+use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Shared\Domain\ValueObject\BoolValueObject;
@@ -15,12 +14,9 @@ use App\Tests\Catalog\Shared\Domain\Property\PropertyTitleMother;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * controller for learning purposes
- */
-class TestController
+class RentalPropertyCreateController
 {
-    public function __construct(private RentalPropertyRepository $repo)
+    public function __construct(private RentalPropertyCreator $creator)
     {
     }
 
@@ -37,7 +33,7 @@ class TestController
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
 
-        $rentalAd = new RentalProperty(
+        $this->creator->__invoke(
             $rentalId,
             $title,
             $description,
@@ -48,14 +44,12 @@ class TestController
             $petsAllowed
         );
 
-        $this->repo->save($rentalAd);
-
         return new JsonResponse(
             [
                 'status' => 'ok',
                 'time' => new \DateTime(),
-                'id' => $rentalAd->id()->value(),
-                'title' => $rentalAd->title()->value()
+                'id' => $rentalId->value(),
+                'title' => $title->value()
             ],
             JsonResponse::HTTP_OK
         );
