@@ -22,7 +22,8 @@ class RentalPropertyFindController
             'status' => 'ok',
             'time' => new \DateTime(),
             'id' => $rental_property->id()->value(),
-            'title' => $rental_property->title()->value()
+            'title' => $rental_property->title()->value(),
+            //'data' => $rental_property->toArray()
         ]);
     }
 }

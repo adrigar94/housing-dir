@@ -74,4 +74,6 @@ abstract class Property
     {
         return $this->updated_at;
     }
+
+    abstract public function toArray(): array;
 }

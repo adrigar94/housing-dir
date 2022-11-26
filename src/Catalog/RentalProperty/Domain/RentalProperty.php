@@ -48,4 +48,20 @@ final class RentalProperty extends Property
         }
         return $this->pets_allowed;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id(),
+            'title' => $this->title(),
+            'description' => $this->description(),
+            'characteristics' => $this->characteristics(),
+            'location' => $this->location(),
+            'gallery' => $this->gallery(),
+            'price_month' => $this->priceMonth(),
+            'pets_allowed' => $this->petsAllowed(),
+            'updated_at' => $this->updatedAt(),
+            'created_at' => $this->createdAt(),
+        ];
+    }
 }

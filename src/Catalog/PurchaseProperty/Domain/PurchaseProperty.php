@@ -46,4 +46,9 @@ final class PurchaseProperty extends Property
         }
         return $this->community_price;
     }
+    
+    public function toArray(): array
+    {
+        return ['TODO']; //TODO
+    }
 }
