@@ -6,6 +6,7 @@ use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Shared\Domain\ValueObject\BoolValueObject;
+use App\Shared\Infrastructure\Http\Response\ApiResponse;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
@@ -44,14 +45,14 @@ class RentalPropertyCreateController
             $petsAllowed
         );
 
-        return new JsonResponse(
+
+        return ApiResponse::createResponseCreated(
             [
                 'status' => 'ok',
                 'time' => new \DateTime(),
                 'id' => $rentalId->value(),
                 'title' => $title->value()
-            ],
-            JsonResponse::HTTP_CREATED
+            ]
         );
     }
 }
