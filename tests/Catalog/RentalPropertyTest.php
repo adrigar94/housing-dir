@@ -29,7 +29,7 @@ class RentalPropertyTest extends KernelTestCase
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
 
-        dd(json_encode($characteristics));
+        //dd(json_encode($characteristics));
 
         $rentalAd = new RentalProperty(
             $rentalId,
