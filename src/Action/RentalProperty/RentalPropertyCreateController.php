@@ -27,7 +27,7 @@ class RentalPropertyCreateController
 
         $rentalId = PropertyIdMother::create();
         $title = PropertyTitleMother::create($data->title);
-        $description = PropertyDescriptionMother::create();
+        $description = PropertyDescriptionMother::create($data->description);
         $characteristics = PropertyCommonCharacteristicsMother::create();
         $location = new PropertyLocation();
         $gallery = new PropertyGallery();
