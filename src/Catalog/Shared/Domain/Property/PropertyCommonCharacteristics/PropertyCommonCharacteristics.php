@@ -5,8 +5,9 @@ namespace App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyConstructionCharacterisitcs\PropertyConstructionCharacterisitcs;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\PropertyEnergyCharacterisitcs;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEquipmentCharacterisitcs\PropertyEquipmentCharacterisitcs;
+use JsonSerializable;
 
-final class PropertyCommonCharacteristics
+final class PropertyCommonCharacteristics implements JsonSerializable
 {
     public function __construct(
         private PropertyConstructionCharacterisitcs $constructionCharacterisitcs,
@@ -41,4 +42,19 @@ final class PropertyCommonCharacteristics
         }
         return $this->energyCharacterisitcs;
     }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+    private function toArray(): array
+    {
+        return ['TODO']; //TODO method toArray
+    }
+
+    // TODO method fromArray
+    // public static function fromArray(array $value): self
+    // {
+    //     return new static();
+    // }
 }
