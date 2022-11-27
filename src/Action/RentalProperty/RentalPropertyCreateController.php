@@ -3,15 +3,15 @@
 namespace App\Action\RentalProperty;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
+use App\Catalog\Shared\Domain\Property\PropertyDescription;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
+use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
+use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyTitleMother;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,9 +25,9 @@ class RentalPropertyCreateController
     {
         $data = json_decode($request->getContent());
 
-        $rentalId = PropertyIdMother::create();
-        $title = PropertyTitleMother::create($data->title);
-        $description = PropertyDescriptionMother::create($data->description);
+        $rentalId = PropertyId::random();
+        $title = new PropertyTitle($data->title);
+        $description = new PropertyDescription($data->description);
         $characteristics = PropertyCommonCharacteristicsMother::create();
         $location = new PropertyLocation();
         $gallery = new PropertyGallery();
