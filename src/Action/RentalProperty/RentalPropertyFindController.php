@@ -23,6 +23,8 @@ class RentalPropertyFindController
             'time' => new \DateTime(),
             'id' => $rental_property->id()->value(),
             'title' => $rental_property->title()->value(),
+            'description' => $rental_property->description()->value(),
+            'characteristics' => $rental_property->characteristics(),
             //'data' => $rental_property->toArray()
         ]);
     }
