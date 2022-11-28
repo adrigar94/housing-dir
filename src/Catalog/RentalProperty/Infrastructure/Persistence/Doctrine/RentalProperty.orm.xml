@@ -8,6 +8,7 @@
         <id name="id" type="property_id"/>
         <field name="title" type="property_title" length="70" />
         <field name="description" type="property_description" length="5120" />
+        <field name="characteristics" type="property_common_characteristics"/>
     </entity>
 
 </doctrine-mapping>

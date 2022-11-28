@@ -10,20 +10,20 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221127113828 extends AbstractMigration
+final class Version20221128160418 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create table rental_properties';
+        return 'add column characteristics';
     }
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE rental_properties (id UUID NOT NULL, title VARCHAR(70) NOT NULL, description VARCHAR(5120) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('ALTER TABLE rental_properties ADD characteristics JSON NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE rental_properties');
+        $this->addSql('ALTER TABLE rental_properties DROP characteristics');
     }
 }
