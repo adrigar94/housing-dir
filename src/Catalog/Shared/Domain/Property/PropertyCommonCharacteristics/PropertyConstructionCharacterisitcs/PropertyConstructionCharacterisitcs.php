@@ -46,28 +46,28 @@ class PropertyConstructionCharacterisitcs
         }
         return $this->bathrooms;
     }
-    public function type_construction($new = null): TypesConstruction
+    public function typeConstruction($new = null): TypesConstruction
     {
         if (!is_null($new)) {
             $this->type_construction = $new;
         }
         return $this->type_construction;
     }
-    public function contructed_area($new = null): SquareMeters
+    public function contructedArea($new = null): SquareMeters
     {
         if (!is_null($new)) {
             $this->contructed_area = $new;
         }
         return $this->contructed_area;
     }
-    public function living_area($new = null): SquareMeters
+    public function livingArea($new = null): SquareMeters
     {
         if (!is_null($new)) {
             $this->living_area = $new;
         }
         return $this->living_area;
     }
-    public function plot_area($new = null): SquareMeters
+    public function plotArea($new = null): SquareMeters
     {
         if (!is_null($new)) {
             $this->plot_area = $new;
@@ -102,11 +102,45 @@ class PropertyConstructionCharacterisitcs
         }
         return $this->orientation;
     }
-    public function has_lift($new = null): BoolValueObject
+    public function hasLift($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_lift = $new;
         }
         return $this->has_lift;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'rooms' => $this->rooms()->value(),
+            'bathrooms' => $this->bathrooms()->value(),
+            'typeConstruction' => $this->typeConstruction(),
+            'contructedArea' => $this->contructedArea()->value(),
+            'livingArea' => $this->livingArea()->value(),
+            'plotArea' => $this->plotArea()->value(),
+            'age' => $this->age()->value(),
+            'conservation' => $this->conservation(),
+            'floor' => $this->floor()->value(),
+            'orientation' => $this->orientation()->values(),
+            'hasLift' => $this->hasLift()->value(),
+        ];
+    }
+
+    public static function fromArray(array $value): self
+    {
+        $rooms = new Rooms($value['rooms']);
+        $bathrooms = new BathRooms($value['bathrooms']);
+        $typeConstruction = TypesConstruction::from($value['typeConstruction']);
+        $contructedArea = new SquareMeters($value['contructedArea']);
+        $livingArea = new SquareMeters($value['livingArea']);
+        $plotArea = new SquareMeters($value['plotArea']);
+        $age = new Age($value['age']);
+        $conservation = BuildingConservation::from($value['conservation']);
+        $floor = new Floor($value['floor']);
+        $orientation = OrientationsCollection::fromArray($value['orientation']);
+        $hasLift = new BoolValueObject($value['hasLift']);
+
+        return new static($rooms, $bathrooms, $typeConstruction, $contructedArea, $livingArea, $plotArea, $age, $conservation, $floor, $orientation, $hasLift);
     }
 }

@@ -36,4 +36,18 @@ class Consumption extends IntValueObject implements Stringable
     {
         return $this->KWhPerMeter2() . ' KWh/m² year';
     }
+
+    public function toArray(): array
+    {
+        return [
+            'value' => $this->value(),
+            'rating' => $this->rating()
+        ];
+    }
+
+    public static function fromArray(array $value): self
+    {
+        $rating = EnergyEfficiencyRating::from($value['rating']);
+        return new static($value['value'],$rating);
+    }
 }

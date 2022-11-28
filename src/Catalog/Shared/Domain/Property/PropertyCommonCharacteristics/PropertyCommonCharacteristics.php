@@ -19,7 +19,7 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         $this->energyCharacterisitcs = $energyCharacterisitcs;
     }
 
-    public function ConstructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): PropertyConstructionCharacterisitcs
+    public function constructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): PropertyConstructionCharacterisitcs
     {
         if (!is_null($new)) {
             $this->constructionCharacterisitcs = $new;
@@ -27,7 +27,7 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         return $this->constructionCharacterisitcs;
     }
 
-    public function EquipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): PropertyEquipmentCharacterisitcs
+    public function equipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): PropertyEquipmentCharacterisitcs
     {
         if (!is_null($new)) {
             $this->equipmentCharacterisitcs = $new;
@@ -35,7 +35,7 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         return $this->equipmentCharacterisitcs;
     }
 
-    public function EnergyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): PropertyEnergyCharacterisitcs
+    public function energyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): PropertyEnergyCharacterisitcs
     {
         if (!is_null($new)) {
             $this->energyCharacterisitcs = $new;
@@ -49,12 +49,19 @@ final class PropertyCommonCharacteristics implements JsonSerializable
     }
     private function toArray(): array
     {
-        return ['TODO']; //TODO method toArray
+        return [
+            'constructionCharacterisitcs' => $this->constructionCharacterisitcs()->toArray(),
+            'equipmentCharacterisitcs' => $this->equipmentCharacterisitcs()->toArray(),
+            'energyCharacterisitcs' => $this->energyCharacterisitcs()->toArray(),
+        ];
     }
 
-    // TODO method fromArray
-    // public static function fromArray(array $value): self
-    // {
-    //     return new static();
-    // }
+    public static function fromArray(array $value): self
+    {
+        $constructionCharacterisitcs = PropertyConstructionCharacterisitcs::fromArray($value['constructionCharacterisitcs']);
+        $equipmentCharacterisitcs = PropertyEquipmentCharacterisitcs::fromArray($value['equipmentCharacterisitcs']);
+        $energyCharacterisitcs = PropertyEnergyCharacterisitcs::fromArray($value['energyCharacterisitcs']);
+        
+        return new static($constructionCharacterisitcs, $equipmentCharacterisitcs, $energyCharacterisitcs);
+    }
 }

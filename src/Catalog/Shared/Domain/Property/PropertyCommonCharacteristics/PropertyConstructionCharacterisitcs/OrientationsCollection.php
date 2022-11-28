@@ -15,4 +15,13 @@ class OrientationsCollection
     {
         return $this->orientations;
     }
+
+    public static function fromArray(array $values): self
+    {
+        $orientations = [];
+        foreach ($values as $value) {
+            $orientations[] = Orientations::from($value);
+        }
+        return new static(...$orientations);
+    }
 }

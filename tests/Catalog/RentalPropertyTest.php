@@ -5,6 +5,7 @@ namespace App\Tests\Catalog;
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Shared\Domain\ValueObject\BoolValueObject;
@@ -28,8 +29,6 @@ class RentalPropertyTest extends KernelTestCase
         $gallery = new PropertyGallery();
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
-
-        //dd(json_encode($characteristics));
 
         $rentalAd = new RentalProperty(
             $rentalId,

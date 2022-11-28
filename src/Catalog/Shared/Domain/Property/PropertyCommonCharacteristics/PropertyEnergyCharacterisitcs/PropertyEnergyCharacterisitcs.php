@@ -14,13 +14,29 @@ class PropertyEnergyCharacterisitcs
         $this->emissions = $emissions;
     }
 
-    public function Consumption(): Consumption
+    public function consumption(): Consumption
     {
         return $this->consumption;
     }
 
-    public function Emissions(): Emissions
+    public function emissions(): Emissions
     {
         return $this->emissions;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'consumption' => $this->consumption()->toArray(),
+            'emissions' => $this->emissions()->toArray()
+        ];
+    }
+
+    public static function fromArray(array $value): self
+    {
+        $consumtion = Consumption::fromArray($value['consumption']);
+        $emissions = Emissions::fromArray($value['emissions']);
+
+        return new static($consumtion,$emissions);
     }
 }

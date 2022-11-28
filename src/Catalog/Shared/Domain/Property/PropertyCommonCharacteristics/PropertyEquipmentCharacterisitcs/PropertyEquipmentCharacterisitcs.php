@@ -24,7 +24,7 @@ class PropertyEquipmentCharacterisitcs
         $this->has_pool = $has_pool;
     }
 
-    public function IsFurnished($new = null): BoolValueObject
+    public function isFurnished($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->is_furnished = $new;
@@ -32,7 +32,7 @@ class PropertyEquipmentCharacterisitcs
         return $this->is_furnished;
     }
 
-    public function HasGarage($new = null): BoolValueObject
+    public function hasGarage($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_garage = $new;
@@ -40,7 +40,7 @@ class PropertyEquipmentCharacterisitcs
         return $this->has_garage;
     }
 
-    public function HasHeating($new = null): BoolValueObject
+    public function hasHeating($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_heating = $new;
@@ -48,7 +48,7 @@ class PropertyEquipmentCharacterisitcs
         return $this->has_heating;
     }
 
-    public function TypeHeating($new = null): TypesHeating
+    public function typeHeating($new = null): TypesHeating
     {
         if (!is_null($new)) {
             $this->type_heating = $new;
@@ -56,7 +56,7 @@ class PropertyEquipmentCharacterisitcs
         return $this->type_heating;
     }
 
-    public function HasAirConditioning($new = null): BoolValueObject
+    public function hasAirConditioning($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_air_conditioning = $new;
@@ -64,7 +64,7 @@ class PropertyEquipmentCharacterisitcs
         return $this->has_air_conditioning;
     }
 
-    public function HasGarden($new = null): BoolValueObject
+    public function hasGarden($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_garden = $new;
@@ -72,11 +72,36 @@ class PropertyEquipmentCharacterisitcs
         return $this->has_garden;
     }
 
-    public function HasPool($new = null): BoolValueObject
+    public function hasPool($new = null): BoolValueObject
     {
         if (!is_null($new)) {
             $this->has_pool = $new;
         }
         return $this->has_pool;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'isFurnished' => $this->isFurnished()->value(),
+            'hasGarage' => $this->hasGarage()->value(),
+            'hasHeating' => $this->hasHeating()->value(),
+            'typeHeating' => $this->typeHeating(),
+            'hasAirConditioning' => $this->hasAirConditioning()->value(),
+            'hasGarden' => $this->hasGarden()->value(),
+            'hasPool' => $this->hasPool()->value(),
+        ];
+    }
+
+    public static function fromArray(array $value): self
+    {
+        $isFurnished = new BoolValueObject($value['isFurnished']);
+        $hasGarage = new BoolValueObject($value['hasGarage']);
+        $hasHeating = new BoolValueObject($value['hasHeating']);
+        $typeHeating = TypesHeating::from($value['typeHeating']);
+        $hasAirConditioning = new BoolValueObject($value['hasAirConditioning']);
+        $hasGarden = new BoolValueObject($value['hasGarden']);
+        $hasPool = new BoolValueObject($value['hasPool']);
+        return new static($isFurnished, $hasGarage, $hasHeating, $typeHeating, $hasAirConditioning, $hasGarden, $hasPool);
     }
 }
