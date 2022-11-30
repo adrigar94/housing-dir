@@ -18,6 +18,7 @@ use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEne
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\EnergyEfficiencyRating;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEnergyCharacterisitcs\PropertyEnergyCharacterisitcs;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEquipmentCharacterisitcs\PropertyEquipmentCharacterisitcs;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyEquipmentCharacterisitcs\TypesHeating;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Shared\Domain\ValueObject\BoolMother;
 use App\Tests\Shared\Domain\ValueObject\IntMother;
@@ -36,7 +37,7 @@ class PropertyCommonCharacteristicsMother
                 new SquareMeters(IntMother::create(10,200)),
                 new SquareMeters(IntMother::create(10,200)),
                 new Age(IntMother::create(0,100)),
-                BuildingConservation::Good,
+                RandomElementMother::create(BuildingConservation::cases()),
                 new Floor(IntMother::create(0,10)),
                 new OrientationsCollection(RandomElementMother::create(Orientations::cases()), RandomElementMother::create(Orientations::cases())),
                 BoolMother::create()
@@ -45,7 +46,7 @@ class PropertyCommonCharacteristicsMother
                 BoolMother::create(),
                 BoolMother::create(),
                 BoolMother::create(),
-                null, // TODO: random type of heating
+                RandomElementMother::create(TypesHeating::cases()),
                 BoolMother::create(),
                 BoolMother::create(),
                 BoolMother::create()
