@@ -10,16 +10,16 @@ use JsonSerializable;
 final class PropertyCommonCharacteristics implements JsonSerializable
 {
     public function __construct(
-        private PropertyConstructionCharacterisitcs $constructionCharacterisitcs,
-        private PropertyEquipmentCharacterisitcs $equipmentCharacterisitcs,
-        private PropertyEnergyCharacterisitcs $energyCharacterisitcs,
+        private ?PropertyConstructionCharacterisitcs $constructionCharacterisitcs = null,
+        private ?PropertyEquipmentCharacterisitcs $equipmentCharacterisitcs = null,
+        private ?PropertyEnergyCharacterisitcs $energyCharacterisitcs = null,
     ) {
         $this->constructionCharacterisitcs = $constructionCharacterisitcs;
         $this->equipmentCharacterisitcs = $equipmentCharacterisitcs;
         $this->energyCharacterisitcs = $energyCharacterisitcs;
     }
 
-    public function constructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): PropertyConstructionCharacterisitcs
+    public function constructionCharacterisitcs(PropertyConstructionCharacterisitcs $new = null): ?PropertyConstructionCharacterisitcs
     {
         if (!is_null($new)) {
             $this->constructionCharacterisitcs = $new;
@@ -27,7 +27,7 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         return $this->constructionCharacterisitcs;
     }
 
-    public function equipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): PropertyEquipmentCharacterisitcs
+    public function equipmentCharacterisitcs(PropertyEquipmentCharacterisitcs $new = null): ?PropertyEquipmentCharacterisitcs
     {
         if (!is_null($new)) {
             $this->equipmentCharacterisitcs = $new;
@@ -35,7 +35,7 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         return $this->equipmentCharacterisitcs;
     }
 
-    public function energyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): PropertyEnergyCharacterisitcs
+    public function energyCharacterisitcs(PropertyEnergyCharacterisitcs $new = null): ?PropertyEnergyCharacterisitcs
     {
         if (!is_null($new)) {
             $this->energyCharacterisitcs = $new;
@@ -50,18 +50,18 @@ final class PropertyCommonCharacteristics implements JsonSerializable
     private function toArray(): array
     {
         return [
-            'constructionCharacterisitcs' => $this->constructionCharacterisitcs()->toArray(),
-            'equipmentCharacterisitcs' => $this->equipmentCharacterisitcs()->toArray(),
-            'energyCharacterisitcs' => $this->energyCharacterisitcs()->toArray(),
+            'constructionCharacterisitcs' => $this->constructionCharacterisitcs() ? $this->constructionCharacterisitcs()->toArray() : null,
+            'equipmentCharacterisitcs' => $this->equipmentCharacterisitcs() ? $this->equipmentCharacterisitcs()->toArray() : null,
+            'energyCharacterisitcs' => $this->energyCharacterisitcs() ? $this->energyCharacterisitcs()->toArray() : null,
         ];
     }
 
     public static function fromArray(array $value): self
     {
-        $constructionCharacterisitcs = PropertyConstructionCharacterisitcs::fromArray($value['constructionCharacterisitcs']);
-        $equipmentCharacterisitcs = PropertyEquipmentCharacterisitcs::fromArray($value['equipmentCharacterisitcs']);
-        $energyCharacterisitcs = PropertyEnergyCharacterisitcs::fromArray($value['energyCharacterisitcs']);
-        
+        $constructionCharacterisitcs = isset($value['constructionCharacterisitcs']) ? PropertyConstructionCharacterisitcs::fromArray($value['constructionCharacterisitcs'] ?? []) : null;
+        $equipmentCharacterisitcs = isset($value['equipmentCharacterisitcs']) ? PropertyEquipmentCharacterisitcs::fromArray($value['equipmentCharacterisitcs'] ?? []) : null;
+        $energyCharacterisitcs = isset($value['energyCharacterisitcs']) ? PropertyEnergyCharacterisitcs::fromArray($value['energyCharacterisitcs'] ?? []) : null;
+
         return new static($constructionCharacterisitcs, $equipmentCharacterisitcs, $energyCharacterisitcs);
     }
 }

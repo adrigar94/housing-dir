@@ -7,19 +7,19 @@ class PropertyEnergyCharacterisitcs
     // TODO: generate label of energy certificate
 
     public function __construct(
-        private Consumption $consumption,
-        private Emissions $emissions
+        private ?Consumption $consumption = null,
+        private ?Emissions $emissions = null
     ) {
         $this->consumption = $consumption;
         $this->emissions = $emissions;
     }
 
-    public function consumption(): Consumption
+    public function consumption(): ?Consumption
     {
         return $this->consumption;
     }
 
-    public function emissions(): Emissions
+    public function emissions(): ?Emissions
     {
         return $this->emissions;
     }
@@ -27,16 +27,16 @@ class PropertyEnergyCharacterisitcs
     public function toArray(): array
     {
         return [
-            'consumption' => $this->consumption()->toArray(),
-            'emissions' => $this->emissions()->toArray()
+            'consumption' => $this->consumption() ? $this->consumption()->toArray() : null,
+            'emissions' => $this->emissions() ? $this->emissions()->toArray() : null
         ];
     }
 
     public static function fromArray(array $value): self
     {
-        $consumtion = Consumption::fromArray($value['consumption']);
-        $emissions = Emissions::fromArray($value['emissions']);
+        $consumtion = (isset($value['consumption']) and !is_null($value['consumption'])) ? Consumption::fromArray($value['consumption']) : null;
+        $emissions = (isset($value['emissions']) and !is_null($value['emissions'])) ? Emissions::fromArray($value['emissions']) : null;
 
-        return new static($consumtion,$emissions);
+        return new static($consumtion, $emissions);
     }
 }

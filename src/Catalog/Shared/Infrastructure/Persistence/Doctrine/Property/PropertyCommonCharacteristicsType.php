@@ -18,7 +18,7 @@ class PropertyCommonCharacteristicsType extends JsonType
 
     public function convertToPHPValue($value, AbstractPlatform $platform): PropertyCommonCharacteristics
     {
-        $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+        $value = json_decode($value??[], true, 512, JSON_THROW_ON_ERROR);
         return PropertyCommonCharacteristics::fromArray($value);
     }
 }

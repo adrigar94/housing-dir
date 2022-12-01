@@ -4,12 +4,12 @@ namespace App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\Prope
 
 enum TypesConstruction: string
 {
-    case Home = 'homes';
+    case Home = 'home';
     case Room = 'room';
     case Office = 'office';
     case Commercial = 'commercial';
     case Garage = 'garage';
     case Land = 'land';
     case StorageRoom = 'storage_room';
-    case Building = 'buildings';
+    case Building = 'building';
 }

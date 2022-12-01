@@ -10,6 +10,7 @@ doctrine:
             property_title: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyTitleType'
             property_description: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyDescriptionType'
             property_common_characteristics: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyCommonCharacteristicsType'
+            property_location: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyLocationType'
             
     orm:
         auto_generate_proxy_classes: true

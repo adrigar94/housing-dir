@@ -11,6 +11,7 @@ use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
+use App\Tests\Catalog\Shared\Domain\Property\PropertyLocationMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
@@ -91,7 +92,7 @@ final class DoctrineRentalPropertyRepository extends ServiceEntityRepository imp
         $title = new PropertyTitle($result[0]['title_property_title']);
         $description = PropertyDescriptionMother::create();
         $characteristics = PropertyCommonCharacteristicsMother::create();
-        $location = new PropertyLocation();
+        $location = PropertyLocationMother::create();
         $gallery = new PropertyGallery();
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);

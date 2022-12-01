@@ -3,6 +3,7 @@
 namespace App\Action\RentalProperty;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
+use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyDescription;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyId;
@@ -10,7 +11,6 @@ use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +23,13 @@ class RentalPropertyCreateController
 
     public function __invoke(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent());
+        $data = json_decode($request->getContent(), true);
 
         $rentalId = PropertyId::random();
-        $title = new PropertyTitle($data->title);
-        $description = new PropertyDescription($data->description);
-        $characteristics = PropertyCommonCharacteristicsMother::create();
-        $location = new PropertyLocation();
+        $title = new PropertyTitle($data['title']);
+        $description = new PropertyDescription($data['description']);
+        $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics']??[]);
+        $location = PropertyLocation::fromArray($data['location']??[]);
         $gallery = new PropertyGallery();
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);

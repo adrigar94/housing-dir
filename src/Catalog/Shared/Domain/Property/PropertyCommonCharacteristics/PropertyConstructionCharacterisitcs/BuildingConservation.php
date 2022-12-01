@@ -6,5 +6,5 @@ enum BuildingConservation: string
 {
     case NewHome = 'new_home';
     case Good = 'good';
-    case NeedRenovating = 'needs_renovating';
+    case NeedRenovating = 'need_renovating';
 }
