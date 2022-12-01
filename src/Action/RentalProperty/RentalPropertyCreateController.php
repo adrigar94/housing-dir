@@ -30,7 +30,7 @@ class RentalPropertyCreateController
         $description = new PropertyDescription($data['description']);
         $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics']??[]);
         $location = PropertyLocation::fromArray($data['location']??[]);
-        $gallery = new PropertyGallery();
+        $gallery = PropertyGallery::fromArray($data['gallery']??[]);
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
 

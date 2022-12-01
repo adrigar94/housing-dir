@@ -5,10 +5,10 @@ namespace App\Tests\Catalog;
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
-use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
+use App\Tests\Catalog\Shared\Domain\Property\PropertyGalleryMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyLocationMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
@@ -25,7 +25,7 @@ class RentalPropertyTest extends KernelTestCase
         $description = PropertyDescriptionMother::create();
         $characteristics = PropertyCommonCharacteristicsMother::create();
         $location = PropertyLocationMother::create();
-        $gallery = new PropertyGallery();
+        $gallery = PropertyGalleryMother::create();
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
 
@@ -51,7 +51,7 @@ class RentalPropertyTest extends KernelTestCase
         // $rentalRepository = $this->getMockBuilder(RentalPropertyRepository::class)->getMock();
         // $rentalRepository->expects($this->once())
         //     ->method('save');
-        // TODO
+        // TODO mock
 
         $creator = new RentalPropertyCreator($this->createMock(RentalPropertyRepository::class));
         $creator->__invoke(

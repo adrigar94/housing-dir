@@ -25,7 +25,10 @@ class RentalPropertyFindController
             'title' => $rental_property->title()->value(),
             'description' => $rental_property->description()->value(),
             'characteristics' => $rental_property->characteristics(),
-            'location' => $rental_property->location()
+            'location' => $rental_property->location(),
+            'gallery' => $rental_property->gallery(),
+            'created_at' => $rental_property->createdAt(),
+            'updated_at' => $rental_property->updatedAt(),
             //'data' => $rental_property->toArray()
         ]);
     }
