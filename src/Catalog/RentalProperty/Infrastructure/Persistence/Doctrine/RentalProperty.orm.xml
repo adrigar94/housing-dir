@@ -11,6 +11,7 @@
         <field name="characteristics" type="property_common_characteristics"/>
         <field name="location" type="property_location"/>
         <field name="gallery" type="property_gallery"/>
+        <field name="price_month" type="property_price"/>
 
         <field name="updated_at" type="datetime"/>
         <field name="created_at" type="datetime"/>

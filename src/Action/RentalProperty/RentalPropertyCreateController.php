@@ -8,10 +8,10 @@ use App\Catalog\Shared\Domain\Property\PropertyDescription;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
+use App\Catalog\Shared\Domain\Property\PropertyPrice;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;
-use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,7 +31,7 @@ class RentalPropertyCreateController
         $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics']??[]);
         $location = PropertyLocation::fromArray($data['location']??[]);
         $gallery = PropertyGallery::fromArray($data['gallery']??[]);
-        $price = PropertyPriceMother::create();
+        $price = PropertyPrice::fromArray($data['price_month']??[]);
         $petsAllowed = new BoolValueObject(false);
 
         $this->creator->__invoke(

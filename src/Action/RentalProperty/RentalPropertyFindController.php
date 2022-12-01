@@ -27,6 +27,7 @@ class RentalPropertyFindController
             'characteristics' => $rental_property->characteristics(),
             'location' => $rental_property->location(),
             'gallery' => $rental_property->gallery(),
+            'price_month' => $rental_property->priceMonth(),
             'created_at' => $rental_property->createdAt(),
             'updated_at' => $rental_property->updatedAt(),
             //'data' => $rental_property->toArray()

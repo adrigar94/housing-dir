@@ -12,6 +12,7 @@ doctrine:
             property_common_characteristics: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyCommonCharacteristicsType'
             property_location: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyLocationType'
             property_gallery: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyGalleryType'
+            property_price: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyPriceType'
             
     orm:
         auto_generate_proxy_classes: true
