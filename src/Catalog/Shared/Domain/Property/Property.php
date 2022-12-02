@@ -18,14 +18,6 @@ abstract class Property implements JsonSerializable
         protected DateTime $updated_at = new DateTime(),
         protected DateTime $created_at = new DateTime(),
     ) {
-        $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->characteristics = $characteristics;
-        $this->location = $location;
-        $this->gallery = $gallery;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
     }
 
     public function id(): PropertyId

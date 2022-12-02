@@ -28,8 +28,6 @@ final class RentalProperty extends Property
         DateTime $created_at = new DateTime()
     ) {
         parent::__construct($id, $title, $description, $characteristics, $location, $gallery, $created_at, $updated_at);
-        $this->price_month = $price_month;
-        $this->pets_allowed = $pets_allowed;
     }
 
 
