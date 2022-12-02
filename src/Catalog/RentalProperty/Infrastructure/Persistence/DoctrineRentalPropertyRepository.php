@@ -19,11 +19,6 @@ use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 final class DoctrineRentalPropertyRepository extends DoctrineRepository implements RentalPropertyRepository
 {
-    public function __construct(private ManagerRegistry $manager_registry, protected Connection $connection)
-    {
-        parent::__construct($manager_registry,$connection);
-    }
-
     protected static function entityClass(): string
     {
         return RentalProperty::class;
