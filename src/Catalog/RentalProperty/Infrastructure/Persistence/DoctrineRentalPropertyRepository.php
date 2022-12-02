@@ -6,30 +6,32 @@ use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyId;
-use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyLocationMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-final class DoctrineRentalPropertyRepository extends ServiceEntityRepository implements RentalPropertyRepository
+final class DoctrineRentalPropertyRepository extends DoctrineRepository implements RentalPropertyRepository
 {
-
-
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(private ManagerRegistry $manager_registry, protected Connection $connection)
     {
-        parent::__construct($registry, RentalProperty::class);
+        parent::__construct($manager_registry,$connection);
+    }
+
+    protected static function entityClass(): string
+    {
+        return RentalProperty::class;
     }
 
     public function save(RentalProperty $property): void
     {
-        $this->_em->persist($property);
-        $this->_em->flush($property);
+        $this->saveEntity($property);
     }
 
     public function findById(PropertyId $id): ?RentalProperty
@@ -43,12 +45,14 @@ final class DoctrineRentalPropertyRepository extends ServiceEntityRepository imp
 
     private function findWithORM(PropertyId $id): ?RentalProperty
     {
-        return $this->find($id);
+        return $this->object_repository->find($id);
     }
     private function findWithQueryBuilder(PropertyId $id): ?RentalProperty
     {
-        $qb = $this->createQueryBuilder('rp');
-        $query = $qb->where($qb->expr()->eq('rp.id', ':id'))
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select(['rp'])
+            ->from('App\Catalog\RentalProperty\Domain\RentalProperty', 'rp')
+            ->where($qb->expr()->eq('rp.id', ':id'))
             ->setParameter('id', $id)
             ->getQuery();
         return $query->getOneOrNullResult();
@@ -67,7 +71,7 @@ final class DoctrineRentalPropertyRepository extends ServiceEntityRepository imp
         $rsm->addRootEntityFromClassMetadata(RentalProperty::class, 'rp');
 
         $query = $this->getEntityManager()->createNativeQuery(
-            'SELECT rp.id, rp.title_property_title FROM rental_properties rp WHERE rp.id = :id',
+            'SELECT * FROM rental_properties rp WHERE rp.id = :id',
             $rsm
         );
         $query->setParameter('id', $id);
@@ -80,16 +84,16 @@ final class DoctrineRentalPropertyRepository extends ServiceEntityRepository imp
         $params = [
             ':id' => $this->getEntityManager()->getConnection()->quote($id),
         ];
-        $sql = 'SELECT rp.id, rp.title_property_title FROM rental_properties rp WHERE rp.id = :id';
+        $sql = 'SELECT rp.* FROM rental_properties rp WHERE rp.id = :id';
 
         $result = $this->getEntityManager()->getConnection()->executeQuery(\strtr($sql, $params))->fetchAllAssociative();
 
-        if(!isset($result[0])){
+        if (!isset($result[0])) {
             return null;
         }
 
         $rentalId = new PropertyId($result[0]['id']);
-        $title = new PropertyTitle($result[0]['title_property_title']);
+        $title = new PropertyTitle($result[0]['title']);
         $description = PropertyDescriptionMother::create();
         $characteristics = PropertyCommonCharacteristicsMother::create();
         $location = PropertyLocationMother::create();
