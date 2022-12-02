@@ -23,7 +23,7 @@ final class RentalProperty extends Property
         PropertyLocation $location,
         PropertyGallery $gallery,
         private PropertyPrice $price_month,
-        private BoolValueObject $pets_allowed,
+        private ?BoolValueObject $pets_allowed = null,
         DateTime $updated_at = new DateTime(),
         DateTime $created_at = new DateTime()
     ) {
@@ -41,7 +41,7 @@ final class RentalProperty extends Property
         return $this->price_month;
     }
 
-    public function petsAllowed(PropertyPrice $new = null): BoolValueObject
+    public function petsAllowed(PropertyPrice $new = null): ?BoolValueObject
     {
         if (!is_null($new)) {
             $this->pets_allowed = $new;

@@ -28,11 +28,11 @@ class RentalPropertyCreateController
         $rentalId = PropertyId::random();
         $title = new PropertyTitle($data['title']);
         $description = new PropertyDescription($data['description']);
-        $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics']??[]);
-        $location = PropertyLocation::fromArray($data['location']??[]);
-        $gallery = PropertyGallery::fromArray($data['gallery']??[]);
-        $price = PropertyPrice::fromArray($data['price_month']??[]);
-        $petsAllowed = new BoolValueObject(false);
+        $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics'] ?? []);
+        $location = PropertyLocation::fromArray($data['location'] ?? []);
+        $gallery = PropertyGallery::fromArray($data['gallery'] ?? []);
+        $price = PropertyPrice::fromArray($data['price_month'] ?? []);
+        $petsAllowed = isset($data['pets_allowed']) ? new BoolValueObject($data['pets_allowed']) : null;
 
         $this->creator->__invoke(
             $rentalId,

@@ -13,7 +13,7 @@ doctrine:
             property_location: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyLocationType'
             property_gallery: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyGalleryType'
             property_price: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyPriceType'
-            
+            property_pets_allowed: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyPetsAllowedType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

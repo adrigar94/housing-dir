@@ -2,7 +2,9 @@
 
 namespace App\Shared\Domain\ValueObject;
 
-class BoolValueObject
+use JsonSerializable;
+
+class BoolValueObject implements JsonSerializable
 {
     public function __construct(protected bool $value)
     {
@@ -12,5 +14,10 @@ class BoolValueObject
     public function value(): bool
     {
         return $this->value;
+    }
+
+    public function jsonSerialize(): bool
+    {
+        return $this->value();
     }
 }
