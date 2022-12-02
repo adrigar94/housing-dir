@@ -21,7 +21,7 @@ class RentalPropertyCreateController
     {
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): ApiResponse
     {
         $data = json_decode($request->getContent(), true);
 

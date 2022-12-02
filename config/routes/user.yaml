@@ -1,0 +1,4 @@
+api.user.create:
+  path: /api/user
+  controller: App\Action\User\UserCreateController
+  methods: [ POST ]

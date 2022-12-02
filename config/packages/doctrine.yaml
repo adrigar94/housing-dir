@@ -14,6 +14,10 @@ doctrine:
             property_gallery: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyGalleryType'
             property_price: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyPriceType'
             property_pets_allowed: 'App\Catalog\Shared\Infrastructure\Persistence\Doctrine\Property\PropertyPetsAllowedType'
+            user_id: 'App\Auth\User\Infrastructure\Persistence\Doctrine\UserIdType'
+            user_name: 'App\Auth\User\Infrastructure\Persistence\Doctrine\UserNameType'
+            user_email: 'App\Auth\User\Infrastructure\Persistence\Doctrine\UserEmailType'
+            user_password: 'App\Auth\User\Infrastructure\Persistence\Doctrine\UserPasswordType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -31,6 +35,13 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Catalog/Shared/Infrastructure/Persistence/Doctrine/Property'
                 prefix: 'App\Catalog\Shared\Domain\Property'
                 alias: SharedProperty
+            User:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Auth/User/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Auth\User\Domain'
+                alias: User
+            
 when@test:
     doctrine:
         dbal:
