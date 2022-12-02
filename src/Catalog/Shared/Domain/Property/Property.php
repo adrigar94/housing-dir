@@ -4,8 +4,9 @@ namespace App\Catalog\Shared\Domain\Property;
 
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use DateTime;
+use JsonSerializable;
 
-abstract class Property
+abstract class Property implements JsonSerializable
 {
     public function __construct(
         protected PropertyId $id,
@@ -76,4 +77,9 @@ abstract class Property
     }
 
     abstract public function toArray(): array;
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
+    }
 }

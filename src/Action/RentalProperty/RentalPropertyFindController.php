@@ -20,7 +20,7 @@ class RentalPropertyFindController
 
         return ApiResponse::createResponseOK([
             'status' => 'ok',
-            'data' => $rental_property->toArray()
+            'data' => $rental_property
         ]);
     }
 }
