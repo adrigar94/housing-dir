@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
+use JsonSerializable;
 use RuntimeException;
 use Stringable;
 
-abstract class StringValueObject implements Stringable
+abstract class StringValueObject implements Stringable, JsonSerializable
 {
     protected $min_length = null;
     protected $max_length = null;
@@ -43,6 +44,11 @@ abstract class StringValueObject implements Stringable
     }
 
     public function __toString(): string
+    {
+        return $this->value();
+    }
+
+    public function jsonSerialize(): string
     {
         return $this->value();
     }

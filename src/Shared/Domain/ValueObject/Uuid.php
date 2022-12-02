@@ -3,10 +3,11 @@
 namespace App\Shared\Domain\ValueObject;
 
 use InvalidArgumentException;
+use JsonSerializable;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use Stringable;
 
-class Uuid implements Stringable
+class Uuid implements Stringable, JsonSerializable
 {
     public function __construct(protected string $value)
     {
@@ -29,6 +30,11 @@ class Uuid implements Stringable
     }
 
     public function __toString(): string
+    {
+        return $this->value();
+    }
+
+    public function jsonSerialize(): string
     {
         return $this->value();
     }

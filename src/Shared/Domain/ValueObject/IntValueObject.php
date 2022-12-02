@@ -2,9 +2,10 @@
 
 namespace App\Shared\Domain\ValueObject;
 
+use JsonSerializable;
 use RuntimeException;
 
-class IntValueObject
+class IntValueObject implements JsonSerializable
 {
     protected $min_int = null;
     protected $max_int = null;
@@ -37,5 +38,10 @@ class IntValueObject
         if (!is_null($this->max_int) and $int > $this->max_int) {
             throw new RuntimeException("Int exceeds maximum allowed", 500);
         }
+    }
+
+    public function jsonSerialize(): int
+    {
+        return $this->value;
     }
 }

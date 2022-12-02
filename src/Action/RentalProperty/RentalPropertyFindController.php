@@ -20,18 +20,7 @@ class RentalPropertyFindController
 
         return ApiResponse::createResponseOK([
             'status' => 'ok',
-            'time' => new \DateTime(),
-            'id' => $rental_property->id()->value(),
-            'title' => $rental_property->title()->value(),
-            'description' => $rental_property->description()->value(),
-            'characteristics' => $rental_property->characteristics(),
-            'location' => $rental_property->location(),
-            'gallery' => $rental_property->gallery(),
-            'price_month' => $rental_property->priceMonth(),
-            'pets_allowed' => $rental_property->petsAllowed(),
-            'created_at' => $rental_property->createdAt(),
-            'updated_at' => $rental_property->updatedAt(),
-            //'data' => $rental_property->toArray()
+            'data' => $rental_property->toArray()
         ]);
     }
 }
