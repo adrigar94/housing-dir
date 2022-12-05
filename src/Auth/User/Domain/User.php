@@ -2,8 +2,10 @@
 
 namespace App\Auth\User\Domain;
 use DateTime;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(
         private UserId $id,
@@ -59,5 +61,22 @@ class User
     public function markAsUpdated(): void
     {
         $this->updated_at = new DateTime();
+    }
+
+    public function getRoles(): array
+    {
+        return [];
+    }
+
+    public function eraseCredentials():void{}
+    
+    public function getUserIdentifier(): string
+    {
+        return $this->email();
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password->value();
     }
 }

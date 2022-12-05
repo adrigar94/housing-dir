@@ -27,6 +27,6 @@ final class DoctrineUserRepository extends DoctrineRepository implements UserRep
 
     public function findByEmail(UserEmail $email): ?User
     {
-        return $this->object_repository->findOneBy(['email',$email]);
+        return $this->object_repository->findOneBy(['email'=>$email]);
     }
 }
