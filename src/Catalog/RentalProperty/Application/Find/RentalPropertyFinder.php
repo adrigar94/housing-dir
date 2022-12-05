@@ -14,6 +14,9 @@ final class RentalPropertyFinder
     }
 
 
+    /**
+     * @throws RentalPropertyNotExist
+     */
     public function __invoke(PropertyId $id): RentalProperty
     {
         $property = $this->repository->findById($id);

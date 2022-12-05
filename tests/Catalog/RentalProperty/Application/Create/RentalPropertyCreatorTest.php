@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Tests\Catalog;
+namespace App\Tests\Catalog\RentalProperty\Application\Create;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
-use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
@@ -13,10 +12,23 @@ use App\Tests\Catalog\Shared\Domain\Property\PropertyIdMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyLocationMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyPriceMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyTitleMother;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class RentalPropertyTest extends KernelTestCase
+class RentalPropertyCreatorTest extends KernelTestCase
 {
+    private RentalPropertyRepository|MockObject $rentalRepositoryMock;
+
+    protected function setUp(): void
+    {
+        $this->rentalRepositoryMock = $this->getMockBuilder(RentalPropertyRepository::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+    }
+
     /** @test */
     public function it_should_valid_creation_rental_property(): void
     {
@@ -29,31 +41,11 @@ class RentalPropertyTest extends KernelTestCase
         $price = PropertyPriceMother::create();
         $petsAllowed = new BoolValueObject(false);
 
-        $rentalAd = new RentalProperty(
-            $rentalId,
-            $title,
-            $description,
-            $characteristics,
-            $location,
-            $gallery,
-            $price,
-            $petsAllowed
-        );
+        $this->rentalRepositoryMock
+            ->expects($this->once())
+            ->method('save');
 
-        $this->assertEquals($rentalAd->id()->value(), $rentalId->value(), "testing id");
-        $this->assertEquals($rentalAd->title()->value(), $title->value(), "testing title");
-        $this->assertEquals($rentalAd->description()->value(), $description->value(), "testing description");
-        $this->assertEquals($rentalAd->characteristics(), $characteristics, "testing characteristics");
-        $this->assertEquals($rentalAd->location(), $location, "testing location");
-        $this->assertEquals($rentalAd->gallery(), $gallery, "testing gallery");
-        $this->assertEquals($rentalAd->priceMonth(), $price, "testing price");
-
-        // $rentalRepository = $this->getMockBuilder(RentalPropertyRepository::class)->getMock();
-        // $rentalRepository->expects($this->once())
-        //     ->method('save');
-        // TODO mock
-
-        $creator = new RentalPropertyCreator($this->createMock(RentalPropertyRepository::class));
+        $creator = new RentalPropertyCreator($this->rentalRepositoryMock);
         $creator->__invoke(
             $rentalId,
             $title,
