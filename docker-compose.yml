@@ -24,6 +24,8 @@ services:
         UID: 1000
     volumes:
       - ./:/appdata/www
+    links:
+      - housing-db:housing-db
     networks:
       - housing-network
 
@@ -49,3 +51,4 @@ volumes:
 
 networks:
   housing-network:
+    driver: bridge
