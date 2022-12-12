@@ -3,7 +3,6 @@
 namespace App\Auth\User\Domain;
 
 use App\Shared\Domain\ValueObject\StringValueObject;
-use RuntimeException;
 
 class UserEmail extends StringValueObject
 {
@@ -19,7 +18,7 @@ class UserEmail extends StringValueObject
     private function ensureIsEmailIsValid(string $string): void
     {
         if(!filter_var($string,FILTER_VALIDATE_EMAIL)){
-            throw new RuntimeException("Email is invalid", 500);
+            throw new InvalidEmailException();
         }
     }
 }

@@ -2,15 +2,13 @@
 
 namespace App\Tests\Action\User;
 
-use App\Action\ControllerTest;
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use App\Tests\Action\AuthenticatedControllerTest;
+use App\Auth\User\Domain\InvalidEmailException;
+use App\Auth\User\Domain\InvalidUserPasswordMinLengthException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class UserCreateControllerTest extends ControllerTest
+class UserCreateControllerTest extends AuthenticatedControllerTest
 {
-    
-    use RefreshDatabaseTrait;
-    
     private const ENDPOINT = '/api/user';
 
     /** @test */
@@ -24,8 +22,41 @@ class UserCreateControllerTest extends ControllerTest
 
         $response = $this->request(self::ENDPOINT, $payload);
         $content = json_decode($response->getContent(), true);
-        
-        $this->assertEquals(JsonResponse::HTTP_CREATED,$response->getStatusCode());
+
+        $this->assertEquals(JsonResponse::HTTP_CREATED, $response->getStatusCode());
         $this->assertArrayHasKey("id", $content);
+    }
+
+    /** @test */
+    public function it_should_fail_create_user_because_email_is_invalid(): void
+    {
+        $payload = [
+            'name' => 'Adrián',
+            'email' => 'adrigmail.com',
+            'password' => 'pass123',
+        ];
+
+        $response = $this->request(self::ENDPOINT, $payload);
+        $content = json_decode($response->getContent(), true);
+
+        $this->assertEquals(InvalidEmailException::Code, $response->getStatusCode());
+        $this->assertContains(InvalidEmailException::Message, $content);
+    }
+
+
+    /** @test */
+    public function it_should_fail_create_user_because_password_is_short(): void
+    {
+        $payload = [
+            'name' => 'Adrián',
+            'email' => 'adri@gmail.com',
+            'password' => 'pass',
+        ];
+
+        $response = $this->request(self::ENDPOINT, $payload);
+        $content = json_decode($response->getContent(), true);
+
+        $this->assertEquals(InvalidUserPasswordMinLengthException::Code, $response->getStatusCode());
+        $this->assertContains(InvalidUserPasswordMinLengthException::Message, $content);
     }
 }

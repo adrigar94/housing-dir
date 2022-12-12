@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Action;
+namespace App\Tests\Action;
 
-use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,30 +10,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class ControllerTest extends WebTestCase
 {
+    use RefreshDatabaseTrait;
+
     protected static ?KernelBrowser $baseClient = null;
-    
-    public function setUp():void
+
+    public function setUp(): void
     {
         parent::setUp();
-        if(self::$baseClient === null){
-            self::createAuthenticatedClient(self::$baseClient);
+        if (self::$baseClient === null) {
+            self::$baseClient = static::createClient();
         }
-    }
-
-    protected static function createAuthenticatedClient(): void
-    {
-        self::$baseClient = static::createClient();
-
-        $encoder = self::$baseClient->getContainer()->get(JWTEncoderInterface::class);
-
-        self::$baseClient->setServerParameters([
-            'CONTENT_TYPE' => 'application/json',
-            'HTTP_ACCEPT' => 'application/json',
-            'HTTP_Authorization' => sprintf('Bearer %s', $encoder->encode([
-                'username' => 'adri@testing.com',
-                'exp' => time() + 3600
-            ]))
-        ]);
     }
 
     protected function request(string $endpoint, array $payload): Response

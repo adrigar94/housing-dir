@@ -2,6 +2,8 @@
 
 namespace App\Shared\Domain\Event;
 
+use Exception;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -24,9 +26,10 @@ class KernelException
             'traces' => $exception->getTrace()
         ];
         
-        if ($exception instanceof HttpExceptionInterface) {
+        if ($exception instanceof Exception
+        ) {
             $data = [
-                'code' => $exception->getStatusCode(),
+                'code' => $exception->getCode(),
                 'message' => $exception->getMessage()
             ];
         }

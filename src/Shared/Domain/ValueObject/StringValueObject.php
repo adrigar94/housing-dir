@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
+use DomainException;
 use JsonSerializable;
-use RuntimeException;
 use Stringable;
 
 abstract class StringValueObject implements Stringable, JsonSerializable
@@ -33,13 +33,13 @@ abstract class StringValueObject implements Stringable, JsonSerializable
     final protected function ensureIsMinLengthIsValid(string $string): void
     {
         if(!is_null($this->min_length) AND strlen($string) < $this->min_length){
-            throw new RuntimeException("String does not have the required minimum length", 500);
+            throw new InvalidStringValueObjectMinLengthException();
         }
     }
     final protected function ensureIsMaxLengthIsValid(string $string): void
     {
         if(!is_null($this->max_length) AND strlen($string) > $this->max_length){
-            throw new RuntimeException("String exceeds maximum allowed length", 500);
+            throw new DomainException("String exceeds maximum allowed length", 500);
         }
     }
 
