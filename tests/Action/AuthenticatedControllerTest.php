@@ -19,7 +19,7 @@ abstract class AuthenticatedControllerTest extends ControllerTest
         }
     }
 
-    protected static function createAuthenticatedClient(): void
+    private static function createAuthenticatedClient(): void
     {
 
         $user = self::$baseClient->getContainer()->get(UserRepository::class)->findByEmail(new UserEmail('adri@testing.com'));
