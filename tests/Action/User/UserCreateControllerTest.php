@@ -23,7 +23,9 @@ class UserCreateControllerTest extends ControllerTest
         ];
 
         $response = $this->request(self::ENDPOINT, $payload);
+        $content = json_decode($response->getContent(), true);
         
         $this->assertEquals(JsonResponse::HTTP_CREATED,$response->getStatusCode());
+        $this->assertArrayHasKey("id", $content);
     }
 }
