@@ -9,8 +9,11 @@ services:
         UID: 1000
     ports:
       - 1000:80
+      - "443:443"
     volumes:
       - ./public:/appdata/www/public
+      - ./Docker/nginx/ssl:/etc/ssl/certs
+      - ./Docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - housing-app
     networks:

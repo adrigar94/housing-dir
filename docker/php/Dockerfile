@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 ARG UID
 
@@ -21,6 +21,10 @@ RUN apt-get update && \
     docker-php-ext-enable apcu pdo_pgsql sodium && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Install Symfony binary
+RUN wget https://get.symfony.com/cli/installer -O - | bash \
+    && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
 # Install and update composer
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer self-update
@@ -30,6 +34,6 @@ RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
 RUN chmod a+x php-cs-fixer
 RUN mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
+# Set working directory
 RUN mkdir -p /appdata/www
-
 WORKDIR /appdata/www
