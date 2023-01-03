@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\RentalProperty;
+namespace App\Api\RentalProperty;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Action\User;
+namespace App\Tests\Api\User;
 
-use App\Tests\Action\AuthenticatedControllerTest;
+use App\Tests\Api\AuthenticatedControllerTest;
 use App\Auth\User\Domain\InvalidEmailException;
 use App\Auth\User\Domain\InvalidUserPasswordMinLengthException;
 use Symfony\Component\HttpFoundation\JsonResponse;

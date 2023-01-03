@@ -1,9 +1,9 @@
 api.rental-property.create:
   path: /api/rental-property
-  controller: App\Action\RentalProperty\RentalPropertyCreateController
+  controller: App\Api\RentalProperty\RentalPropertyCreateController
   methods: [ POST ]
 
 api.rental-property.find:
   path: /api/rental-property/{id}
-  controller: App\Action\RentalProperty\RentalPropertyFindController
+  controller: App\Api\RentalProperty\RentalPropertyFindController
   methods: [ GET ]

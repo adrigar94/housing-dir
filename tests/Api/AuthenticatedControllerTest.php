@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Action;
+namespace App\Tests\Api;
 
 use App\Auth\User\Domain\UserEmail;
 use App\Auth\User\Domain\UserRepository;
-use App\Tests\Action\ControllerTest;
+use App\Tests\Api\ControllerTest;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 abstract class AuthenticatedControllerTest extends ControllerTest

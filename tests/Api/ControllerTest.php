@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Action;
+namespace App\Tests\Api;
 
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;

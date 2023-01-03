@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\User;
+namespace App\Api\User;
 
 use App\Auth\User\Application\Create\UserCreator;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;
