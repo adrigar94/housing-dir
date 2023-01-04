@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
 class RentalPropertyCreateController
 {
     public function __construct(
-        private RentalPropertyCreator $creator,
         private CommandBus $commandBus
     ) {
     }
