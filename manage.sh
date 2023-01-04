@@ -17,32 +17,32 @@ then
     # # # Move certificates to the correct location
     # sudo mv /etc/letsencrypt/live/housingdir.com/fullchain.pem ./Docker/nginx/ssl/cert.pem
     # sudo mv /etc/letsencrypt/live/housingdir.com/privkey.pem ./Docker/nginx/ssl/key.pem
-    exit 1
+    exit 0
 fi
 
 
 if [ "$1" == "start" ]
 then 
     docker compose up -d
-    exit 1
+    exit 0
 fi
 
 if [ "$1" == "list:containers" ]
 then 
     docker ps
-    exit 1
+    exit 0
 fi
 
 if [ "$1" == "stop" ]
 then 
     docker compose down
-    exit 1
+    exit 0
 fi
 
 if [ "$1" == "tests" ]
 then 
     docker container exec -t housing-app php bin/phpunit
-    exit 1
+    exit 0
 fi
 
 if [ "$1" == "terminal" ]
@@ -53,7 +53,7 @@ then
     else
         docker container exec -it housing-app bash
     fi
-    exit 1
+    exit 0
 fi
 
 
