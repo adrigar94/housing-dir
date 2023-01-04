@@ -2,6 +2,7 @@
 
 namespace App\Api\RentalProperty;
 
+use App\Api\ApiController;
 use App\Catalog\RentalProperty\Application\Create\CreateRentalPropertyCommand;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;

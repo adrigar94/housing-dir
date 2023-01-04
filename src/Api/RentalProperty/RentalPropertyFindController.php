@@ -2,6 +2,7 @@
 
 namespace App\Api\RentalProperty;
 
+use App\Api\ApiController;
 use App\Catalog\RentalProperty\Application\Find\FindRentalPropertyQuery;
 use App\Catalog\RentalProperty\Application\Find\FindRentalPropertyResponse;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;

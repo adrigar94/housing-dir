@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\RentalProperty;
+namespace App\Api;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Command\CommandBus;
