@@ -34,3 +34,9 @@ services:
     App\Shared\Domain\Event\KernelException:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+
+    ### Buses
+    App\Shared\Domain\Bus\Command\CommandBus:
+        class: App\Shared\Infrastructure\Bus\Command\InMemoryCommandBus
+        arguments: [ !tagged internal.command_handler ]
