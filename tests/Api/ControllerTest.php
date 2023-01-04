@@ -22,9 +22,9 @@ abstract class ControllerTest extends WebTestCase
         }
     }
 
-    protected function request(string $endpoint, array $payload): Response
+    protected function request(string $endpoint, array $payload, string $method = Request::METHOD_POST): Response
     {
-        self::$baseClient->request(Request::METHOD_POST, $endpoint, [], [], [], json_encode($payload));
+        self::$baseClient->request($method, $endpoint, [], [], [], json_encode($payload));
         return self::$baseClient->getResponse();
     }
 }
