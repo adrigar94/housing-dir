@@ -31,7 +31,7 @@ class HandlerBuilder
         $method     = $reflection->getMethod('__invoke');
 
         if ($method->getNumberOfParameters() === 1) {
-            return $method->getParameters()[0]->getClass()?->getName();
+            return $method->getParameters()[0]->getType()?->getName();
         }
 
         return null;
