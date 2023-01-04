@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\Bus\Command;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Command\CommandBus;
+use App\Shared\Infrastructure\Bus\HandlerBuilder;
 use InvalidArgumentException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;

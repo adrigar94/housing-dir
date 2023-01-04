@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Bus\Command;
+namespace App\Shared\Infrastructure\Bus;
 
 use ReflectionClass;
 
