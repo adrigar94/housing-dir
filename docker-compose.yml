@@ -12,8 +12,8 @@ services:
       - "443:443"
     volumes:
       - ./public:/appdata/www/public
-      - ./Docker/nginx/ssl:/etc/ssl/certs
-      - ./Docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/ssl/certs
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - housing-app
     networks:
