@@ -2,6 +2,7 @@
 
 namespace App\Api\RentalProperty;
 
+use App\Catalog\RentalProperty\Application\Create\CreateRentalPropertyCommand;
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyDescription;
@@ -10,48 +11,45 @@ use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyPrice;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
+use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\ValueObject\BoolValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Http\Response\ApiResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class RentalPropertyCreateController
 {
-    public function __construct(private RentalPropertyCreator $creator)
-    {
+    public function __construct(
+        private RentalPropertyCreator $creator,
+        private CommandBus $commandBus
+    ) {
     }
 
     public function __invoke(Request $request): ApiResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $rentalId = PropertyId::random();
-        $title = new PropertyTitle($data['title']);
-        $description = new PropertyDescription($data['description']);
-        $characteristics = PropertyCommonCharacteristics::fromArray($data['characteristics'] ?? []);
-        $location = PropertyLocation::fromArray($data['location'] ?? []);
-        $gallery = PropertyGallery::fromArray($data['gallery'] ?? []);
-        $price = PropertyPrice::fromArray($data['price_month'] ?? []);
-        $petsAllowed = isset($data['pets_allowed']) ? new BoolValueObject($data['pets_allowed']) : null;
-
-        $this->creator->__invoke(
-            $rentalId,
-            $title,
-            $description,
-            $characteristics,
-            $location,
-            $gallery,
-            $price,
-            $petsAllowed
+        $id = Uuid::random();
+        $command = new CreateRentalPropertyCommand(
+            $id,
+            $data['title'],
+            $data['description'],
+            $data['characteristics'] ?? [],
+            $data['location'] ?? [],
+            $data['gallery'] ?? [],
+            $data['price_month'] ?? [],
+            isset($data['pets_allowed']) ? $data['pets_allowed'] : null
         );
 
+        $this->commandBus->dispatch($command);
 
         return ApiResponse::createResponseCreated(
             [
                 'status' => 'ok',
                 'time' => new \DateTime(),
-                'id' => $rentalId->value(),
-                'title' => $title->value()
+                'id' => $id,
+                'title' => $data['title']
             ]
         );
     }
