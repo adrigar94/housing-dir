@@ -49,6 +49,11 @@ load_fixtures() {
     docker container exec -t housing-app php bin/console hautelook:fixtures:load
 }
 
+run_composer() {
+    local params="$@"
+    docker container exec -t housing-app composer $params
+}
+
 # Define main logic
 case "$1" in
     "prepare")
@@ -72,6 +77,9 @@ case "$1" in
     "load-fixtures")
         load_fixtures
         ;;
+    "composer")
+        run_composer "${@:2}"
+        ;;
     *)
         echo "You can use any of the following commands:"
         echo "$0 prepare"
@@ -81,4 +89,5 @@ case "$1" in
         echo "$0 terminal [service_name]"
         echo "$0 tests"
         echo "$0 load-fixtures"
+        echo "$0 composer"
 esac
