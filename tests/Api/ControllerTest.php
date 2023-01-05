@@ -27,4 +27,10 @@ abstract class ControllerTest extends WebTestCase
         self::$baseClient->request($method, $endpoint, [], [], [], json_encode($payload));
         return self::$baseClient->getResponse();
     }
+
+    protected function getRequest(string $endpoint): Response
+    {
+        self::$baseClient->request(Request::METHOD_GET, $endpoint, [], [], []);
+        return self::$baseClient->getResponse();
+    }
 }
