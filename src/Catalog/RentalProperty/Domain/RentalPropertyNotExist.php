@@ -10,7 +10,7 @@ final class RentalPropertyNotExist extends HttpException
 {
     public function __construct(private readonly PropertyId $id)
     {
-        parent::__construct(Response::HTTP_NOT_FOUND, $this->errorMessage());
+        parent::__construct(Response::HTTP_NOT_FOUND, $this->errorMessage(), null, [], Response::HTTP_NOT_FOUND);
     }
 
     protected function errorMessage(): string
