@@ -54,6 +54,11 @@ run_composer() {
     docker container exec -t housing-app composer $params
 }
 
+run_console() {
+    local params="$@"
+    docker container exec -t housing-app php bin/console $params
+}
+
 # Define main logic
 case "$1" in
     "prepare")
@@ -80,6 +85,9 @@ case "$1" in
     "composer")
         run_composer "${@:2}"
         ;;
+    "console")
+        run_console "${@:2}"
+        ;;
     *)
         echo "You can use any of the following commands:"
         echo "$0 prepare"
@@ -89,5 +97,6 @@ case "$1" in
         echo "$0 terminal [service_name]"
         echo "$0 tests"
         echo "$0 load-fixtures"
-        echo "$0 composer"
+        echo "$0 composer [composer_arguments]"
+        echo "$0 console [console_arguments]"
 esac
