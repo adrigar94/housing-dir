@@ -25,7 +25,7 @@ final class PropertyGallery implements JsonSerializable
         foreach ($values as $value) {
             $images[] = Image::fromArray($value);
         }
-        return new static(...$images);
+        return new self(...$images);
     }
 
     public function toArray(): array

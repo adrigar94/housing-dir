@@ -37,6 +37,6 @@ class PropertyEnergyCharacterisitcs
         $consumtion = (isset($value['consumption']) and !is_null($value['consumption'])) ? Consumption::fromArray($value['consumption']) : null;
         $emissions = (isset($value['emissions']) and !is_null($value['emissions'])) ? Emissions::fromArray($value['emissions']) : null;
 
-        return new static($consumtion, $emissions);
+        return new self($consumtion, $emissions);
     }
 }

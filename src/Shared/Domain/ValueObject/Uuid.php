@@ -7,6 +7,7 @@ use JsonSerializable;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use Stringable;
 
+/** @phpstan-consistent-constructor */
 class Uuid implements Stringable, JsonSerializable
 {
     public function __construct(protected string $value)

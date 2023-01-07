@@ -48,6 +48,6 @@ class Consumption extends IntValueObject implements Stringable
     public static function fromArray(array $value): self
     {
         $rating = EnergyEfficiencyRating::from($value['rating']);
-        return new static($value['value'],$rating);
+        return new self($value['value'],$rating);
     }
 }

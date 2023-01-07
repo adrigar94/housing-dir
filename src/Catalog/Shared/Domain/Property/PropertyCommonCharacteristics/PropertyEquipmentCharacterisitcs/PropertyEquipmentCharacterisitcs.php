@@ -102,6 +102,6 @@ class PropertyEquipmentCharacterisitcs
         $hasAirConditioning = (isset($value['hasAirConditioning']) and !is_null($value['hasAirConditioning'])) ? new BoolValueObject($value['hasAirConditioning']) : null;
         $hasGarden = (isset($value['hasGarden']) and !is_null($value['hasGarden'])) ? new BoolValueObject($value['hasGarden']) : null;
         $hasPool = (isset($value['hasPool']) and !is_null($value['hasPool'])) ? new BoolValueObject($value['hasPool']) : null;
-        return new static($isFurnished, $hasGarage, $hasHeating, $typeHeating, $hasAirConditioning, $hasGarden, $hasPool);
+        return new self($isFurnished, $hasGarage, $hasHeating, $typeHeating, $hasAirConditioning, $hasGarden, $hasPool);
     }
 }

@@ -72,6 +72,6 @@ final class PropertyLocation implements JsonSerializable
         $region = $value['region'] ?? throw new Exception("Missing parameter region in location", 500);
         $city = $value['city'] ?? throw new Exception("Missing parameter city in location", 500);
         $address = $value['address'] ?? throw new Exception("Missing parameter address in location", 500);
-        return new static($country, $region, $city, $address);
+        return new self($country, $region, $city, $address);
     }
 }

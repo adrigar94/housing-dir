@@ -36,7 +36,7 @@ final class Image implements JsonSerializable
         $url_large = $value['url_large'] ?? throw new Exception("Missing parameter url_large in image", 500);
         $title = $value['title'] ?? null;
         $alt = $value['alt'] ?? null;
-        return new static($url_thumbnail, $url_tiny, $url_medium, $url_large, $title, $alt);
+        return new self($url_thumbnail, $url_tiny, $url_medium, $url_large, $title, $alt);
     }
 
     public function toArray(): array

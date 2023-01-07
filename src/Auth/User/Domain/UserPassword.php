@@ -15,7 +15,7 @@ class UserPassword extends StringValueObject
         }
 
         $encrypted = password_hash($string, PASSWORD_BCRYPT);
-        return new static($encrypted);
+        return new self($encrypted);
     }
 
     public function checkPlainPasswordIsSame(string $plain_password): bool

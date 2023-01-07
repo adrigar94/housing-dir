@@ -141,6 +141,6 @@ class PropertyConstructionCharacterisitcs
         $orientation = (isset($value['orientation']) and !is_null($value['orientation'])) ? OrientationsCollection::fromArray($value['orientation']) : null;
         $hasLift = (isset($value['hasLift']) and !is_null($value['hasLift'])) ? new BoolValueObject($value['hasLift']) : null;
 
-        return new static($rooms, $bathrooms, $typeConstruction, $contructedArea, $livingArea, $plotArea, $age, $conservation, $floor, $orientation, $hasLift);
+        return new self($rooms, $bathrooms, $typeConstruction, $contructedArea, $livingArea, $plotArea, $age, $conservation, $floor, $orientation, $hasLift);
     }
 }

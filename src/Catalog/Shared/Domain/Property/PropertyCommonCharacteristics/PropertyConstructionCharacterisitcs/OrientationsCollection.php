@@ -22,6 +22,6 @@ class OrientationsCollection
         foreach ($values as $value) {
             $orientations[] = Orientations::from($value);
         }
-        return new static(...$orientations);
+        return new self(...$orientations);
     }
 }

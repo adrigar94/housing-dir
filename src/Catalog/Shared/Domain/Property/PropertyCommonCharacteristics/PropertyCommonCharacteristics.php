@@ -62,6 +62,6 @@ final class PropertyCommonCharacteristics implements JsonSerializable
         $equipmentCharacterisitcs = isset($value['equipmentCharacterisitcs']) ? PropertyEquipmentCharacterisitcs::fromArray($value['equipmentCharacterisitcs'] ?? []) : null;
         $energyCharacterisitcs = isset($value['energyCharacterisitcs']) ? PropertyEnergyCharacterisitcs::fromArray($value['energyCharacterisitcs'] ?? []) : null;
 
-        return new static($constructionCharacterisitcs, $equipmentCharacterisitcs, $energyCharacterisitcs);
+        return new self($constructionCharacterisitcs, $equipmentCharacterisitcs, $energyCharacterisitcs);
     }
 }

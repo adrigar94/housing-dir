@@ -42,7 +42,7 @@ class PropertyPrice implements JsonSerializable
         $price_cents = $value['price_cents'] ?? throw new Exception("Missing parameter price_cent in price", 500);
         $currency = $value['currency'] ?? throw new Exception("Missing parameter currency in price", 500);
         
-        return new static($price_cents, Currencies::from($currency));
+        return new self($price_cents, Currencies::from($currency));
     }
 
     public function toArray(): array
