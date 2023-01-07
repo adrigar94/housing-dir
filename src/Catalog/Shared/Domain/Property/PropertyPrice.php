@@ -32,9 +32,9 @@ class PropertyPrice implements JsonSerializable
     public function toString($symbol_after = false): string
     {
         if ($symbol_after) {
-            return $this->price . " " . $this->currency->value;
+            return $this->price_cents . " " . $this->currency->value;
         }
-        return $this->currency->value . " " . $this->price;
+        return $this->currency->value . " " . $this->price_cents;
     }
 
     public static function fromArray(array $value): self
