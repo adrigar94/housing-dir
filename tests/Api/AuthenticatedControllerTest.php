@@ -15,7 +15,7 @@ abstract class AuthenticatedControllerTest extends ControllerTest
     {
         parent::setUp();
         if (self::$baseClientAuthenticated === false) {
-            self::createAuthenticatedClient(self::$baseClient);
+            self::createAuthenticatedClient();
         }
     }
 
