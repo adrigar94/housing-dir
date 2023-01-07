@@ -32,10 +32,10 @@ final class DoctrineRentalPropertyRepository extends DoctrineRepository implemen
     public function findById(PropertyId $id): ?RentalProperty
     {
         return $this->findWithORM($id);
-        return $this->findWithQueryBuilder($id);
-        return $this->findWithDQL($id);
-        return $this->findWithNativeQuery($id);
-        return $this->findWithSQL($id);
+        // return $this->findWithQueryBuilder($id);
+        // return $this->findWithDQL($id);
+        // return $this->findWithNativeQuery($id);
+        // return $this->findWithSQL($id);
     }
 
     private function findWithORM(PropertyId $id): ?RentalProperty
