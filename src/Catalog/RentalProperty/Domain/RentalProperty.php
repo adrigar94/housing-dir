@@ -39,7 +39,7 @@ final class RentalProperty extends Property
         return $this->price_month;
     }
 
-    public function petsAllowed(PropertyPrice $new = null): ?BoolValueObject
+    public function petsAllowed(BoolValueObject $new = null): ?BoolValueObject
     {
         if (!is_null($new)) {
             $this->pets_allowed = $new;
