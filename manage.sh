@@ -37,7 +37,8 @@ list_containers() {
 }
 
 run_tests() {
-    docker container exec -t housing-app php bin/phpunit
+    local params="$@"
+    docker container exec -t housing-app php bin/phpunit $params
 }
 
 open_terminal() {
@@ -74,7 +75,7 @@ case "$1" in
         list_containers
         ;;
     "tests")
-        run_tests
+        run_tests "${@}"
         ;;
     "terminal")
         open_terminal "$2"
@@ -95,7 +96,7 @@ case "$1" in
         echo "$0 stop"
         echo "$0 list:containers"
         echo "$0 terminal [service_name]"
-        echo "$0 tests"
+        echo "$0 tests [phpunit_params]"
         echo "$0 load-fixtures"
         echo "$0 composer [composer_arguments]"
         echo "$0 console [console_arguments]"
