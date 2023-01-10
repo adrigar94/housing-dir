@@ -18,13 +18,19 @@ class KernelException
         }
 
         $exception = $event->getThrowable();
-
+        
         $data = [
             'class' => \get_class($exception),
-            'code' => $exception->getCode() ?: JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
+            'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
             'traces' => $exception->getTrace()
         ];
+
+        if($data['code'] === 0 AND $exception instanceof HttpExceptionInterface){
+            $data['code'] = $exception->getStatusCode();
+        }elseif($data['code'] === 0){
+            $data['code'] = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
+        }
         
         $event->setResponse($this->prepareResponse($data));
     }
