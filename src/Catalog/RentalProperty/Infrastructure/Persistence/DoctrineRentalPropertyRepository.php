@@ -4,6 +4,8 @@ namespace App\Catalog\RentalProperty\Infrastructure\Persistence;
 
 use App\Catalog\RentalProperty\Domain\RentalProperty;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
+use App\Catalog\RentalProperty\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
+use App\Catalog\Shared\Domain\Criteria\Criteria;
 use App\Catalog\Shared\Domain\Property\PropertyGallery;
 use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
@@ -16,6 +18,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use Doctrine\Common\Collections\Criteria as CollectionsCriteria;
+use Exception;
 
 final class DoctrineRentalPropertyRepository extends DoctrineRepository implements RentalPropertyRepository
 {
@@ -27,6 +31,23 @@ final class DoctrineRentalPropertyRepository extends DoctrineRepository implemen
     public function save(RentalProperty $property): void
     {
         $this->saveEntity($property);
+    }
+
+    public function searchAll(): array
+    {
+        return $this->object_repository->findAll();
+    }
+
+    public function searchByCriteria(Criteria $criteria): array
+    {
+        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $query = $qb->select(['rp'])
+            ->from('App\Catalog\RentalProperty\Domain\RentalProperty', 'rp')
+            ->addCriteria($doctrineCriteria)
+            ->getQuery();
+
+        return $query->getResult();
     }
 
     public function findById(PropertyId $id): ?RentalProperty

@@ -17,7 +17,7 @@ return [
         'rentalProperty1' => [
             '__construct' => [
                 'id' => new PropertyId($propertyId),
-                'title' => PropertyTitleMother::create(),
+                'title' => PropertyTitleMother::create("Apartamento en el casco antiguo"),
                 'description' => PropertyDescriptionMother::create(),
                 'characteristics' => PropertyCommonCharacteristicsMother::create(),
                 'location' => PropertyLocationMother::create(),
@@ -37,7 +37,7 @@ return [
                 'location' => PropertyLocationMother::create(),
                 'gallery' => PropertyGalleryMother::create(),
                 'price_month' => PropertyPriceMother::create(),
-                'pets_allowed' => new BoolValueObject(true),
+                'pets_allowed' => new BoolValueObject(false),
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ]
