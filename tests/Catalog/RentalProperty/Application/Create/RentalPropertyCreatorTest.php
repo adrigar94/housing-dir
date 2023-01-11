@@ -4,6 +4,7 @@ namespace App\Tests\Catalog\RentalProperty\Application\Create;
 
 use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreator;
 use App\Catalog\RentalProperty\Domain\RentalPropertyRepository;
+use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\ValueObject\BoolValueObject;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyCommonCharacteristicsMother;
 use App\Tests\Catalog\Shared\Domain\Property\PropertyDescriptionMother;
@@ -18,10 +19,19 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class RentalPropertyCreatorTest extends KernelTestCase
 {
     private RentalPropertyRepository|MockObject $rentalRepositoryMock;
+    private EventBus|MockObject $eventBusMock;
 
     protected function setUp(): void
     {
         $this->rentalRepositoryMock = $this->getMockBuilder(RentalPropertyRepository::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+
+        
+        $this->eventBusMock = $this->getMockBuilder(EventBus::class)
             ->disableOriginalConstructor()
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -44,8 +54,12 @@ class RentalPropertyCreatorTest extends KernelTestCase
         $this->rentalRepositoryMock
             ->expects($this->once())
             ->method('save');
+        
+        $this->eventBusMock
+            ->expects($this->once())
+            ->method('publish');
 
-        $creator = new RentalPropertyCreator($this->rentalRepositoryMock);
+        $creator = new RentalPropertyCreator($this->rentalRepositoryMock, $this->eventBusMock);
         $creator->__invoke(
             $rentalId,
             $title,

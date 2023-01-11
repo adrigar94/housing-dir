@@ -2,6 +2,7 @@
 
 namespace App\Catalog\RentalProperty\Domain;
 
+use App\Catalog\RentalProperty\Application\Create\RentalPropertyCreatedEvent;
 use App\Catalog\Shared\Domain\Property\Property;
 use App\Catalog\Shared\Domain\Property\PropertyCommonCharacteristics\PropertyCommonCharacteristics;
 use App\Catalog\Shared\Domain\Property\PropertyDescription;
@@ -11,6 +12,7 @@ use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyPrice;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
 use App\Shared\Domain\ValueObject\BoolValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 use DateTime;
 
 final class RentalProperty extends Property
@@ -28,6 +30,10 @@ final class RentalProperty extends Property
         DateTime $created_at = new DateTime()
     ) {
         parent::__construct($id, $title, $description, $characteristics, $location, $gallery, $created_at, $updated_at);
+
+        $now = (new \DateTimeImmutable())->setTimezone(new \DateTimeZone("UTC"))->getTimestamp();
+        $event = RentalPropertyCreatedEvent::fromPrimitives($id->value(), ['rental_property_created'], Uuid::random(), $now);
+        $this->record($event);
     }
 
 

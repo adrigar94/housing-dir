@@ -11,12 +11,16 @@ use App\Catalog\Shared\Domain\Property\PropertyId;
 use App\Catalog\Shared\Domain\Property\PropertyLocation;
 use App\Catalog\Shared\Domain\Property\PropertyPrice;
 use App\Catalog\Shared\Domain\Property\PropertyTitle;
+use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\ValueObject\BoolValueObject;
+use App\Shared\Domain\ValueObject\Uuid;
 
 final class RentalPropertyCreator
 {
-    public function __construct(private RentalPropertyRepository $repository)
-    {
+    public function __construct(
+        private RentalPropertyRepository $repository,
+        private EventBus $eventBus
+    ) {
     }
 
     public function __invoke(
@@ -41,5 +45,9 @@ final class RentalPropertyCreator
         );
 
         $this->repository->save($rentalProperty);
+
+        $events = $rentalProperty->pullDomainEvents();
+
+        $this->eventBus->publish(...$events);
     }
 }
