@@ -18,6 +18,9 @@ services:
 
         App\Shared\Domain\Bus\Query\QueryHandler:
             tags: ['internal.query_handler']
+        
+        App\Shared\Domain\Bus\Event\DomainEventSubscriber:
+            tags: ['internal.event_subscriber']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -47,3 +50,7 @@ services:
     App\Shared\Domain\Bus\Query\QueryBus:
         class: App\Shared\Infrastructure\Bus\Query\InMemoryQueryBus
         arguments: [ !tagged internal.query_handler ]
+    
+    App\Shared\Domain\Bus\Event\EventBus:
+        class: App\Shared\Infrastructure\Bus\Event\InMemoryEventBus
+        arguments: [ !tagged internal.event_subscriber ]

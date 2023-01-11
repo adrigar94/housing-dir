@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Bus;
 
+use App\Shared\Domain\Bus\Event\DomainEventSubscriber;
 use ReflectionClass;
 
 class HandlerBuilder
@@ -35,5 +36,24 @@ class HandlerBuilder
         }
 
         return null;
+    }
+
+    public static function forPipedCallables(iterable $callables): array
+    {
+        $callablesArray = iterator_to_array($callables);
+        
+        return array_reduce(
+            $callablesArray,
+            static function ($subscribers, DomainEventSubscriber $subscriber) {
+                $subscribedEvents = $subscriber::subscribedTo();
+
+                foreach ($subscribedEvents as $subscribedEvent) {
+                    $subscribers[$subscribedEvent][] = $subscriber;
+                }
+
+                return $subscribers;
+            },
+            []
+        );
     }
 }
