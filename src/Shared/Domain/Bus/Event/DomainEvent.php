@@ -11,7 +11,7 @@ abstract class DomainEvent
     public function __construct(
         private string $eventId,
         private string $aggregateId,
-        private string $occurredOn
+        private int $occurredOn
     ) {
     }
 
@@ -19,10 +19,10 @@ abstract class DomainEvent
         string $aggregateId,
         array $body,
         string $eventId,
-        string $occurredOn
+        int $occurredOn
     ): self;
 
-    abstract public static function toPrimitives(): array;
+    abstract public function bodyToPrimitives(): array;
 
     abstract public static function eventName(): string;
 
@@ -36,7 +36,7 @@ abstract class DomainEvent
         return $this->eventId;
     }
 
-    public function occurredOn(): string
+    public function occurredOn(): int
     {
         return $this->occurredOn;
     }

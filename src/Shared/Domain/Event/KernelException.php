@@ -28,7 +28,7 @@ class KernelException
 
         if($data['code'] === 0 AND $exception instanceof HttpExceptionInterface){
             $data['code'] = $exception->getStatusCode();
-        }elseif($data['code'] === 0){
+        }elseif($data['code'] < 100){
             $data['code'] = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
         }
         

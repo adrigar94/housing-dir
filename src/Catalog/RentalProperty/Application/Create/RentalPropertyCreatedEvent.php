@@ -14,7 +14,7 @@ class RentalPropertyCreatedEvent extends DomainEvent
         string $aggregateId,
         array $body,
         string $eventId,
-        string $occurredOn
+        int $occurredOn
     ) {
         parent::__construct($eventId, $aggregateId, $occurredOn);
         $this->body = $body;
@@ -24,19 +24,14 @@ class RentalPropertyCreatedEvent extends DomainEvent
         string $aggregateId,
         array $body,
         string $eventId,
-        string $occurredOn
+        int $occurredOn
     ): self {
         return new self($aggregateId, $body, $eventId, $occurredOn);
     }
 
-    public static function toPrimitives(): array
+    public function bodyToPrimitives(): array
     {
-        return [
-            'aggregateId' => self::aggregateId(),
-            'body' => self::body(),
-            'eventId' => self::eventId(),
-            'occurredOn' => self::occurredOn()
-        ];
+        return $this->body();
     }
 
     public static function eventName(): string

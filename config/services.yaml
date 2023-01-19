@@ -51,6 +51,16 @@ services:
         class: App\Shared\Infrastructure\Bus\Query\InMemoryQueryBus
         arguments: [ !tagged internal.query_handler ]
     
-    App\Shared\Domain\Bus\Event\EventBus:
-        class: App\Shared\Infrastructure\Bus\Event\InMemoryEventBus
-        arguments: [ !tagged internal.event_subscriber ]
+    # App\Shared\Domain\Bus\Event\EventBus:
+    #     class: App\Shared\Infrastructure\Bus\Event\InMemoryEventBus
+    #     arguments: [ !tagged internal.event_subscriber ]
+
+
+    App\Shared\Infrastructure\Bus\Event\DomainEventMapping:
+        arguments: [!tagged internal.event_subscriber]
+        
+    App\Shared\Infrastructure\Bus\Event\DomainEventSubscriberLocator:
+        arguments: [!tagged internal.event_subscriber]
+
+
+    App\Shared\Domain\Bus\Event\EventBus: '@App\Shared\Infrastructure\Bus\Event\Doctrine\DoctrineEventBus'
