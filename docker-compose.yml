@@ -16,6 +16,7 @@ services:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - housing-app
+      - rabbitmq
     networks:
       - housing-network
 
@@ -46,6 +47,16 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     volumes:
       - db-data:/var/lib/postgresql/data:rw
+    networks:
+      - housing-network
+
+  rabbitmq:
+    container_name: rabbitmq
+    build:
+      context: ./docker/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
     networks:
       - housing-network
 
