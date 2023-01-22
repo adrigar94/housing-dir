@@ -18,7 +18,6 @@ final class RabbitMqEventBus implements EventBus
     )
     {
         $this->channel = $connectionService->getChannel();
-        $this->channel->queue_declare('hello', auto_delete: false);
     }
 
     public function __destruct()
@@ -35,7 +34,15 @@ final class RabbitMqEventBus implements EventBus
 
     private function publisher(DomainEvent $domainEvent): void
     {
-        $msg = new AMQPMessage(json_encode($domainEvent->bodyToPrimitives()));
+
+        $this->channel->queue_declare('hello', auto_delete: false, durable: true);
+
+        $msg = new AMQPMessage(
+            json_encode($domainEvent->bodyToPrimitives()),
+            [
+                'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+            ]
+        );
         $this->channel->basic_publish($msg, '', 'hello');
     }
 }

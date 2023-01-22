@@ -22,7 +22,7 @@ final class ConsumeRabbitMqDomainEventsCommand extends Command
         parent::__construct();
 
         $this->channel = $connectionService->getChannel();
-        $this->channel->queue_declare('hello', auto_delete: false);
+        $this->channel->queue_declare('hello', auto_delete: false, durable: true);
     }
 
 
@@ -42,9 +42,10 @@ final class ConsumeRabbitMqDomainEventsCommand extends Command
 
         $consume = $this->consume();
 
-        $msg = $this->channel->basic_get('hello');
-
-        while($msg AND $quantityEventsToProcess){
+        while (
+            $msg = $this->channel->basic_get('hello')
+            and $quantityEventsToProcess
+        ) {
             $consume($msg);
             $quantityEventsToProcess--;
         }
@@ -57,7 +58,10 @@ final class ConsumeRabbitMqDomainEventsCommand extends Command
     private function consume(): callable
     {
         return function (AMQPMessage $msg) {
-            echo $msg->body . PHP_EOL;
+            echo $msg->getRoutingKey() . PHP_EOL;
+            echo $msg->getBody() . PHP_EOL;
+            echo $msg->getDeliveryTag() . PHP_EOL;
+            echo json_encode($msg->get_properties()) . PHP_EOL;
             $this->channel->basic_ack($msg->getDeliveryTag());
         };
     }
