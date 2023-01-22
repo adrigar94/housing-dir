@@ -56,6 +56,16 @@ services:
     #     arguments: [ !tagged internal.event_subscriber ]
 
 
+    App\Shared\Domain\Bus\Event\EventBus: '@App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus'
+
+    App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection:
+        arguments:
+            $host: '%env(RABBITMQ_HOST)%'
+            $port: '%env(RABBITMQ_PORT)%'
+            $user: '%env(RABBITMQ_USER)%'
+            $password: '%env(RABBITMQ_PASSWORD)%'
+
+
     App\Shared\Infrastructure\Bus\Event\DomainEventMapping:
         arguments: [!tagged internal.event_subscriber]
         
@@ -63,4 +73,3 @@ services:
         arguments: [!tagged internal.event_subscriber]
 
 
-    App\Shared\Domain\Bus\Event\EventBus: '@App\Shared\Infrastructure\Bus\Event\Doctrine\DoctrineEventBus'

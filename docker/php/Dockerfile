@@ -17,8 +17,8 @@ RUN apt-get update && \
     apt-get install -y openssl openssh-client wget vim librabbitmq-dev && \
     pecl install apcu && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
-    docker-php-ext-install -j$(nproc) zip opcache intl pdo_pgsql pgsql && \
-    docker-php-ext-enable apcu pdo_pgsql sodium && \
+    docker-php-ext-install -j$(nproc) zip opcache intl pdo_pgsql pgsql bcmath sockets && \
+    docker-php-ext-enable apcu pdo_pgsql sodium bcmath sockets && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Symfony binary
