@@ -1,5 +1,7 @@
 FROM php:8.2-fpm
 
+LABEL version="1.0"
+
 ARG UID
 
 # Create user and some useful stuff
@@ -22,12 +24,12 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Symfony binary
-RUN wget https://get.symfony.com/cli/installer -O - | bash \
-    && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN wget https://get.symfony.com/cli/installer -O - | bash
 
 # Install and update composer
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer self-update
+RUN composer update
 
 # Install PHP-CS-FIXER
 RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
