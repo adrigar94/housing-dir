@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-LABEL version="1.0"
+LABEL version="2.0"
 
 ARG UID
 
@@ -22,6 +22,8 @@ RUN apt-get update && \
     docker-php-ext-install -j$(nproc) zip opcache intl pdo_pgsql pgsql bcmath sockets && \
     docker-php-ext-enable apcu pdo_pgsql sodium bcmath sockets && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-enable sockets
 
 # Install Symfony binary
 RUN wget https://get.symfony.com/cli/installer -O - | bash
@@ -29,7 +31,6 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash
 # Install and update composer
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 RUN composer self-update
-RUN composer update
 
 # Install PHP-CS-FIXER
 RUN wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
