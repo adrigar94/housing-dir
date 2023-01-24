@@ -6,12 +6,12 @@ namespace App\Shared\Infrastructure\Bus\Event\RabbitMq;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPSocketConnection;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 final class RabbitMqConnection
 {
     private AMQPSocketConnection $connection;
-    private AMQPChannel $channel;
+    private ?AMQPChannel $channel = null;
 
     public function __construct(
         $host,
@@ -25,19 +25,21 @@ final class RabbitMqConnection
             $user,
             $password
         );
-
-        $this->channel = $this->connection->channel();
     }
 
-    public function getConnection(): AMQPSocketConnection
+    private function getConnection(): AMQPSocketConnection
     {
         return $this->connection;
     }
 
     public function getChannel(): AMQPChannel
     {
+        if(!$this->channel){
+            $this->channel = $this->getConnection()->channel();
+        }
         return $this->channel;
     }
+
 
     public function close(): void
     {

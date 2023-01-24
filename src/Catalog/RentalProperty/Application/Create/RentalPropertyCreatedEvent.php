@@ -36,7 +36,7 @@ class RentalPropertyCreatedEvent extends DomainEvent
 
     public static function eventName(): string
     {
-        return 'RentalPropertyCreatedEvent';
+        return 'domain-event.property.rental.created';
     }
 
     public function body(): array

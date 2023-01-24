@@ -5,31 +5,27 @@ declare(strict_types=1);
 namespace App\Command\DomainEvents\RabbitMq;
 
 use App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection;
-use PhpAmqpLib\Channel\AMQPChannel;
+use App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class ConsumeRabbitMqDomainEventsCommand extends Command
+final class ArchiveAllEventDomainFromRabbitMqToMysql extends Command
 {
-    private AMQPChannel $channel;
-
+    private const QUEUE_NAME = 'archive_all_event_domain_to_mysql';
     public function __construct(
-        private RabbitMqConnection $connectionService
+        private RabbitMqEventBus $eventBus
     ) {
         parent::__construct();
-
-        $this->channel = $connectionService->getChannel();
-        $this->channel->queue_declare('hello', auto_delete: false, durable: true);
     }
 
 
     protected function configure(): void
     {
         $this
-            ->setName('housing-dir:domain-events:rabbitmq:consume')
+            ->setName('housing-dir:domain-events:rabbitmq:archive-all-domain-events-to-mysql')
             ->setDescription('Consume domain events from RabbitMq')
             ->addArgument('quantity', InputArgument::REQUIRED, 'Quantity of events to process');
     }
@@ -40,29 +36,28 @@ final class ConsumeRabbitMqDomainEventsCommand extends Command
     {
         $quantityEventsToProcess = (int) $input->getArgument('quantity');
 
-        $consume = $this->consume();
+        $this->eventBus->declareQueue(self::QUEUE_NAME, ['domain-event.#']);
 
         while (
-            $msg = $this->channel->basic_get('hello')
+            $msg = $this->eventBus->consume(self::QUEUE_NAME)
             and $quantityEventsToProcess
         ) {
-            $consume($msg);
+            $this->manageMessage($msg);
             $quantityEventsToProcess--;
         }
-
-        $this->connectionService->close();
 
         return 0;
     }
 
-    private function consume(): callable
+    private function manageMessage(AMQPMessage $msg): void
     {
-        return function (AMQPMessage $msg) {
-            echo $msg->getRoutingKey() . PHP_EOL;
-            echo $msg->getBody() . PHP_EOL;
-            echo $msg->getDeliveryTag() . PHP_EOL;
-            echo json_encode($msg->get_properties()) . PHP_EOL;
-            $this->channel->basic_ack($msg->getDeliveryTag());
-        };
+        echo json_encode([
+            'routing_key' => $msg->getRoutingKey(),
+            'body' => $msg->getBody(),
+            'delivery_tag' => $msg->getDeliveryTag(),
+            'properties' => $msg->get_properties(),
+        ]) . PHP_EOL;
+
+        $this->eventBus->processedMessage($msg->getDeliveryTag());
     }
 }
