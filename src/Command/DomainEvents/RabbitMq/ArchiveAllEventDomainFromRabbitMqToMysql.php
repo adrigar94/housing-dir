@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Command\DomainEvents\RabbitMq;
 
-use App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection;
 use App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus;
 use PhpAmqpLib\Message\AMQPMessage;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+
+#[AsCommand(name: 'housing-dir:domain-events:rabbitmq:archive-all-domain-events-to-mysql')]
 final class ArchiveAllEventDomainFromRabbitMqToMysql extends Command
 {
     private const QUEUE_NAME = 'archive_all_event_domain_to_mysql';
@@ -25,7 +27,6 @@ final class ArchiveAllEventDomainFromRabbitMqToMysql extends Command
     protected function configure(): void
     {
         $this
-            ->setName('housing-dir:domain-events:rabbitmq:archive-all-domain-events-to-mysql')
             ->setDescription('Consume domain events from RabbitMq')
             ->addArgument('quantity', InputArgument::REQUIRED, 'Quantity of events to process');
     }
