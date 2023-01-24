@@ -67,6 +67,7 @@ services:
 
 volumes:
   db-data:
+  rabbitmq-data:
 
 networks:
   housing-network:
