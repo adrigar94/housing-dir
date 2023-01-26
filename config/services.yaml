@@ -64,6 +64,15 @@ services:
             $port: '%env(RABBITMQ_PORT)%'
             $user: '%env(RABBITMQ_USER)%'
             $password: '%env(RABBITMQ_PASSWORD)%'
+    
+    App\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
+        arguments:
+            $exchangeName: '%env(RABBITMQ_DOMAIN_EVENT_EXCHANGE_NAME)%'
+    
+    App\Command\DomainEvents\RabbitMq\ConfigureRabbitMqDomainEventsCommand:
+        arguments:
+            $exchangeName: '%env(RABBITMQ_DOMAIN_EVENT_EXCHANGE_NAME)%'
+            $subscribers: !tagged internal.event_subscriber
 
 
     App\Shared\Infrastructure\Bus\Event\DomainEventMapping:

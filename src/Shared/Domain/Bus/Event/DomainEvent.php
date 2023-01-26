@@ -22,6 +22,7 @@ abstract class DomainEvent
         int $occurredOn
     ): self;
 
+    abstract public function toPrimitives(): array;
     abstract public function bodyToPrimitives(): array;
 
     abstract public static function eventName(): string;

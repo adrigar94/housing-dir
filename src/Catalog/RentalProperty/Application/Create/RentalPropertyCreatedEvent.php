@@ -29,6 +29,17 @@ class RentalPropertyCreatedEvent extends DomainEvent
         return new self($aggregateId, $body, $eventId, $occurredOn);
     }
 
+    public function toPrimitives(): array
+    {
+        return [
+            'id' => $this->eventId(),
+            'class' => self::class,
+            'aggregate_id' => $this->aggregateId(),
+            'data' => $this->bodyToPrimitives(),
+            'occurred_on' => $this->occurredOn(),
+        ];
+    }
+
     public function bodyToPrimitives(): array
     {
         return $this->body();

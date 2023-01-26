@@ -26,6 +26,9 @@ install_dependencies() {
 
 start_services() {
     docker compose up -d
+    docker container exec -t housing-app php bin/console housing-dir:domain-events:rabbitmq:generate-supervisor-files
+    docker container exec -t housing-app supervisord
+    run_configure_rabbitmq
 }
 
 stop_services() {
@@ -60,6 +63,10 @@ run_console() {
     docker container exec -t housing-app php bin/console $params
 }
 
+run_configure_rabbitmq() {
+    docker container exec -t housing-app php bin/console housing-dir:domain-events:rabbitmq:configure
+}
+
 # Define main logic
 case "$1" in
     "prepare")
@@ -89,6 +96,10 @@ case "$1" in
     "console")
         run_console "${@:2}"
         ;;
+    "configure-rabbitmq")
+        run_configure_rabbitmq
+        ;;
+        
     *)
         echo "You can use any of the following commands:"
         echo "$0 prepare"
@@ -100,4 +111,5 @@ case "$1" in
         echo "$0 load-fixtures"
         echo "$0 composer [composer_arguments]"
         echo "$0 console [console_arguments]"
+        echo "$0 configure-rabbitmq"
 esac

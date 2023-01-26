@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Catalog\RentalProperty\Application\Create;
 
+use App\Shared\Domain\Bus\Event\DomainEvent;
 use App\Shared\Domain\Bus\Event\DomainEventSubscriber;
 
 class RentalPropertyCreatedSubscriber implements DomainEventSubscriber
@@ -13,8 +14,12 @@ class RentalPropertyCreatedSubscriber implements DomainEventSubscriber
         return [RentalPropertyCreatedEvent::class];
     }
 
-    public function __invoke(RentalPropertyCreatedEvent $event)
+    public function __invoke(DomainEvent $event): void
     {
-        //dd('RentalPropertyCreatedEvent triggered', $event);
+        if($event instanceof RentalPropertyCreatedEvent){
+            //dd('RentalPropertyCreatedEvent triggered', $event);
+            echo "RentalPropertyCreatedEvent triggered\n";
+        }
+        //dd('other RentalPropertyCreatedEvent triggered', $event);
     }
 }

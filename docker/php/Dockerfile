@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-LABEL version="2.0"
+LABEL version="3.1"
 
 ARG UID
 
@@ -25,6 +25,9 @@ RUN apt-get update && \
 RUN docker-php-ext-install sockets
 RUN docker-php-ext-enable sockets
 
+# Install supervisord
+RUN apt-get update && apt-get install -y supervisor
+
 # Install Symfony binary
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 
@@ -40,3 +43,6 @@ RUN mv php-cs-fixer /usr/local/bin/php-cs-fixer
 # Set working directory
 RUN mkdir -p /appdata/www
 WORKDIR /appdata/www
+
+# Set configuration files for supervisor
+RUN echo "[include]\nfiles = /appdata/www/build/supervisor/*.conf" >> /etc/supervisor/supervisord.conf

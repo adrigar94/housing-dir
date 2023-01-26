@@ -27,6 +27,15 @@ final class RabbitMqConnection
         );
     }
 
+
+    public function __destruct()
+    {
+        if ($this->channel) {
+            $this->channel->close();
+        }
+        $this->connection->close();
+    }
+
     private function getConnection(): AMQPSocketConnection
     {
         return $this->connection;
@@ -34,16 +43,9 @@ final class RabbitMqConnection
 
     public function getChannel(): AMQPChannel
     {
-        if(!$this->channel){
+        if (!$this->channel) {
             $this->channel = $this->getConnection()->channel();
         }
         return $this->channel;
-    }
-
-
-    public function close(): void
-    {
-        $this->channel->close();
-        $this->connection->close();
     }
 }

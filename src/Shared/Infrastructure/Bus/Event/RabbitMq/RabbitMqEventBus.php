@@ -10,17 +10,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 final class RabbitMqEventBus implements EventBus
 {
-    private const EXCHANGE_NAME = "domain_events";
 
     public function __construct(
-        private RabbitMqConnection $connectionService
+        private RabbitMqConnection $connectionService,
+        private string $exchangeName
     ) {
-        $this->connectionService->getChannel()->exchange_declare(self::EXCHANGE_NAME, 'topic', false, true, false);
-    }
-
-    public function __destruct()
-    {
-        $this->connectionService->close();
     }
 
     public function publish(DomainEvent ...$events): void
@@ -33,7 +27,7 @@ final class RabbitMqEventBus implements EventBus
     private function publisher(DomainEvent $domainEvent): void
     {
         $msg = new AMQPMessage(
-            json_encode($domainEvent->bodyToPrimitives()),
+            json_encode($domainEvent->toPrimitives()),
             [
                 'message_id' => $domainEvent->eventId(),
                 'timestamp' => $domainEvent->occurredOn(),
@@ -48,24 +42,6 @@ final class RabbitMqEventBus implements EventBus
 
     private function publishToRabbit(AMQPMessage $msg, string $routing_key): void
     {
-        $this->connectionService->getChannel()->basic_publish($msg, self::EXCHANGE_NAME, $routing_key);
-    }
-
-    public function declareQueue($queue_name, array $binding_keys): void
-    {
-        $this->connectionService->getChannel()->queue_declare($queue_name, false, true, false, false, false);
-        foreach ($binding_keys as $binding_key) {
-            $this->connectionService->getChannel()->queue_bind($queue_name, self::EXCHANGE_NAME, $binding_key);
-        }
-    }
-
-    public function consume($queue_name): ?AMQPMessage
-    {
-        return $this->connectionService->getChannel()->basic_get($queue_name);
-    }
-
-    public function processedMessage(int $delivery_tag): void
-    {
-        $this->connectionService->getChannel()->basic_ack($delivery_tag);
+        $this->connectionService->getChannel()->basic_publish($msg, $this->exchangeName, $routing_key);
     }
 }
