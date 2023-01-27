@@ -42,6 +42,8 @@ final class GenerateSupervisorRabbitMqConsumerFilesCommand extends Command
 
         $path = (string) $input->getArgument('command-path');
 
+        $this->createSupervisorFolderIfNotExists();
+
         $io->info("Delete old files supervisor configuration");
         $this->deleteOldFiles();
 
@@ -58,6 +60,12 @@ final class GenerateSupervisorRabbitMqConsumerFilesCommand extends Command
         $io->success("Files generated!");
 
         return 0;
+    }
+
+    private function createSupervisorFolderIfNotExists() {
+        if (!is_dir(self::SUPERVISOR_PATH)) {
+            mkdir(self::SUPERVISOR_PATH, 0777, true);
+        }
     }
 
     private function deleteOldFiles():void
